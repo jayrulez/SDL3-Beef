@@ -69,15 +69,89 @@ public static //extension SDL3
 	{
 		return (((uint32(uint8(A))) << 0) | ((uint32(uint8(B))) << 8) | ((uint32(uint8(C))) << 16) | ((uint32(uint8(D))) << 24));
 	}
+
+
+	/**
+	 *  \name Basic data types
+	 */
+	/* @{ */
+	
+	/**
+	 * A signed 8-bit integer type.
+	 *
+	 * \since This macro is available since SDL 3.2.0.
+	 */
+	//typedef int8_t Sint8;
+	public const int8 SDL_MAX_SINT8   = int8.MaxValue;//((Sint8)0x7F)           /* 127 */
+	public const int8 SDL_MIN_SINT8   = int8.MinValue;//((Sint8)(~0x7F))        /* -128 */
+	
+	/**
+	 * An unsigned 8-bit integer type.
+	 *
+	 * \since This macro is available since SDL 3.2.0.
+	 */
+	//typedef uint8_t Uint8;
+	public const uint8 SDL_MAX_UINT8   = uint8.MaxValue;//((Uint8)0xFF)           /* 255 */
+	public const uint8 SDL_MIN_UINT8   = uint8.MinValue;//((Uint8)0x00)           /* 0 */
+	
+	/**
+	 * A signed 16-bit integer type.
+	 *
+	 * \since This macro is available since SDL 3.2.0.
+	 */
+	//typedef int16_t Sint16;
+	public const int16 SDL_MAX_SINT16  = int16.MaxValue;//((Sint16)0x7FFF)        /* 32767 */
+	public const int16 SDL_MIN_SINT16  = int16.MinValue;//((Sint16)(~0x7FFF))     /* -32768 */
+	
+	/**
+	 * An unsigned 16-bit integer type.
+	 *
+	 * \since This macro is available since SDL 3.2.0.
+	 */
+	//typedef uint16_t Uint16;
+	public const uint16 SDL_MAX_UINT16  = uint16.MaxValue;//((Uint16)0xFFFF)        /* 65535 */
+	public const uint16 SDL_MIN_UINT16  = uint16.MinValue;//((Uint16)0x0000)        /* 0 */
+	
+	/**
+	 * A signed 32-bit integer type.
+	 *
+	 * \since This macro is available since SDL 3.2.0.
+	 */
+	//typedef int32_t Sint32;
+	public const int32 SDL_MAX_SINT32  = int32.MaxValue;//((Sint32)0x7FFFFFFF)    /* 2147483647 */
+	public const int32 SDL_MIN_SINT32  = int32.MinValue;//((Sint32)(~0x7FFFFFFF)) /* -2147483648 */
+	
+	/**
+	 * An unsigned 32-bit integer type.
+	 *
+	 * \since This macro is available since SDL 3.2.0.
+	 */
+	//typedef uint32_t Uint32;
+	public const uint32 SDL_MAX_UINT32  = uint32.MaxValue;//((Uint32)0xFFFFFFFFu)   /* 4294967295 */
+	public const uint32 SDL_MIN_UINT32  = uint32.MinValue;//((Uint32)0x00000000)    /* 0 */
+	
+	/**
+	 * A signed 64-bit integer type.
+	 *
+	 * \since This macro is available since SDL 3.2.0.
+	 *
+	 * \sa SDL_SINT64_C
+	 */
+	//typedef int64_t Sint64;
+	public const int64 SDL_MAX_SINT64  = int64.MaxValue;//SDL_SINT64_C(0x7FFFFFFFFFFFFFFF)   /* 9223372036854775807 */
+	public const int64 SDL_MIN_SINT64  = int64.MinValue;//~SDL_SINT64_C(0x7FFFFFFFFFFFFFFF)  /* -9223372036854775808 */
+	
+	/**
+	 * An unsigned 64-bit integer type.
+	 *
+	 * \since This macro is available since SDL 3.2.0.
+	 *
+	 * \sa SDL_UINT64_C
+	 */
+	//typedef uint64_t Uint64;
+	public const uint64 SDL_MAX_UINT64  = uint64.MaxValue;//SDL_UINT64_C(0xFFFFFFFFFFFFFFFF)   /* 18446744073709551615 */
+	public const uint64 SDL_MIN_UINT64  = uint64.MinValue;//SDL_UINT64_C(0x0000000000000000)   /* 0 */
 }
-
-
-/**
- *  \name Basic data types
- */
-/* @{ */
-
-
 
 /**
  * SDL times are signed, 64-bit integers representing nanoseconds since the
@@ -3021,14 +3095,14 @@ public static //extension SDL3
 	/**
 	 * Seeds the pseudo-random number generator.
 	 *
-	 * Reusing the seed number will cause SDL_rand_*() to repeat the same stream
-	 * of 'random' numbers.
+	 * Reusing the seed number will cause SDL_rand() to repeat the same stream of
+	 * 'random' numbers.
 	 *
 	 * \param seed the value to use as a random number seed, or 0 to use
 	 *             SDL_GetPerformanceCounter().
 	 *
 	 * \threadsafety This should be called on the same thread that calls
-	 *               SDL_rand*()
+	 *               SDL_rand()
 	 *
 	 * \since This function is available since SDL 3.2.0.
 	 *

@@ -111,6 +111,9 @@ public enum SDL_FlipMode : int32
  * format with a pitch of 32 would consist of 32x32 bytes of Y plane followed
  * by 32x16 bytes of UV plane.
  *
+ * When a surface holds MJPG format data, pixels points at the compressed JPEG
+ * image and pitch is the length of that data.
+ * 
  * \since This struct is available since SDL 3.2.0.
  *
  * \sa SDL_CreateSurface
@@ -212,6 +215,10 @@ public static //extension SDL3
 	 *   the same tone mapping that Chrome uses for HDR content, the form "*=N",
 	 *   where N is a floating point scale factor applied in linear space, and
 	 *   "none", which disables tone mapping. This defaults to "chrome".
+	 * - `SDL_PROP_SURFACE_HOTSPOT_X_NUMBER`: the hotspot pixel offset from the
+	 *   left edge of the image, if this surface is being used as a cursor.
+	 * - `SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER`: the hotspot pixel offset from the
+	 *   top edge of the image, if this surface is being used as a cursor.
 	 *
 	 * \param surface the SDL_Surface structure to query.
 	 * \returns a valid property ID on success or 0 on failure; call
@@ -224,6 +231,8 @@ public static //extension SDL3
 	public const char8* SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT              = "SDL.surface.SDR_white_point";
 	public const char8* SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT                 = "SDL.surface.HDR_headroom";
 	public const char8* SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING            = "SDL.surface.tonemap";
+	public const char8* SDL_PROP_SURFACE_HOTSPOT_X_NUMBER                   = "SDL.surface.hotspot.x";
+	public const char8* SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER                   = "SDL.surface.hotspot.y";
 
 	/**
 	 * Set the colorspace used by a surface.

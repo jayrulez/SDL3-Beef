@@ -703,6 +703,8 @@ public enum SDL_PixelFormat : int32
 		/* SDL_DEFINE_PIXELFOURCC('P', '0', '1', '0'), */
 	SDL_PIXELFORMAT_EXTERNAL_OES = 0x2053454fu, /**< Android video texture format */
 		/* SDL_DEFINE_PIXELFOURCC('O', 'E', 'S', ' ') */
+	SDL_PIXELFORMAT_MJPG = 0x47504a4du,     /**< Motion JPEG */
+	/* SDL_DEFINE_PIXELFOURCC('M', 'J', 'P', 'G') */
 
 	/* Aliases for RGBA byte arrays of color data, for the current platform */
 	#if BIGENDIAN //SDL_BYTEORDER == SDL_BIG_ENDIAN

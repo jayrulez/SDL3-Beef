@@ -128,7 +128,7 @@ struct SDL_Texture
 public static //extension SDL3
 {
 	/* Function prototypes */
-	
+
 	/**
 	 * Get the number of 2D rendering drivers available for the current display.
 	 *
@@ -172,7 +172,7 @@ public static //extension SDL3
 	 * \sa SDL_GetNumRenderDrivers
 	 */
 	[CLink] public static extern char8*  SDL_GetRenderDriver(int32 index);
-	
+
 	/**
 	 * Create a window and default renderer.
 	 *
@@ -475,6 +475,9 @@ public static //extension SDL3
 	 * This returns the true output size in pixels, ignoring any render targets or
 	 * logical size and presentation.
 	 *
+	 * For the output size of the current rendering target, with logical size
+	 * adjustments, use SDL_GetCurrentRenderOutputSize() instead.
+	 *
 	 * \param renderer the rendering context.
 	 * \param w a pointer filled in with the width in pixels.
 	 * \param h a pointer filled in with the height in pixels.
@@ -493,9 +496,10 @@ public static //extension SDL3
 	 * Get the current output size in pixels of a rendering context.
 	 *
 	 * If a rendering target is active, this will return the size of the rendering
-	 * target in pixels, otherwise if a logical size is set, it will return the
-	 * logical size, otherwise it will return the value of
-	 * SDL_GetRenderOutputSize().
+	 * target in pixels, otherwise return the value of SDL_GetRenderOutputSize().
+	 *
+	 * Rendering target or not, the output will be adjusted by the current logical
+	 * presentation state, dictated by SDL_SetRenderLogicalPresentation(). 
 	 *
 	 * \param renderer the rendering context.
 	 * \param w a pointer filled in with the current width.
@@ -699,7 +703,7 @@ public static //extension SDL3
 	public const char8* SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER  = "SDL.texture.create.opengles2.texture_u";
 	public const char8* SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER  = "SDL.texture.create.opengles2.texture_v";
 	public const char8* SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER       = "SDL.texture.create.vulkan.texture";
-	
+
 	/**
 	 * Get the properties associated with a texture.
 	 *
@@ -873,7 +877,6 @@ public static //extension SDL3
 	 * \sa SDL_SetTextureColorModFloat
 	 */
 	[CLink] public static extern bool SDL_SetTextureColorMod(SDL_Texture* texture, uint8 r, uint8 g, uint8 b);
-
 
 	/**
 	 * Set an additional color value multiplied into render copy operations.
@@ -1303,6 +1306,11 @@ public static //extension SDL3
 	 * To stop rendering to a texture and render to the window again, call this
 	 * function with a NULL `texture`.
 	 *
+	 * Viewport, cliprect, scale, and logical presentation are unique to each
+	 * render target. Get and set functions for these states apply to the current
+	 * render target set by this function, and those states persist on each target
+	 * when the current render target changes.
+	 * 
 	 * \param renderer the rendering context.
 	 * \param texture the targeted texture, which must be created with the
 	 *                `SDL_TEXTUREACCESS_TARGET` flag, or NULL to render to the
@@ -1336,25 +1344,39 @@ public static //extension SDL3
 	[CLink] public static extern SDL_Texture* SDL_GetRenderTarget(SDL_Renderer* renderer);
 
 	/**
-	 * Set a device independent resolution and presentation mode for rendering.
+	 * Set a device-independent resolution and presentation mode for rendering.
 	 *
 	 * This function sets the width and height of the logical rendering output.
-	 * The renderer will act as if the window is always the requested dimensions,
-	 * scaling to the actual window resolution as necessary.
+	 * The renderer will act as if the current render target is always the
+	 * requested dimensions, scaling to the actual resolution as necessary.
 	 *
 	 * This can be useful for games that expect a fixed size, but would like to
 	 * scale the output to whatever is available, regardless of how a user resizes
 	 * a window, or if the display is high DPI.
 	 *
+	 * Logical presentation can be used with both render target textures and the
+	 * renderer's window; the state is unique to each render target, and this
+	 * function sets the state for the current render target. It might be useful
+	 * to draw to a texture that matches the window dimensions with logical
+	 * presentation enabled, and then draw that texture across the entire window
+	 * with logical presentation disabled. Be careful not to render both with
+	 * logical presentation enabled, however, as this could produce
+	 * double-letterboxing, etc.
+	 *
 	 * You can disable logical coordinates by setting the mode to
 	 * SDL_LOGICAL_PRESENTATION_DISABLED, and in that case you get the full pixel
-	 * resolution of the output window; it is safe to toggle logical presentation
+	 * resolution of the render target; it is safe to toggle logical presentation
 	 * during the rendering of a frame: perhaps most of the rendering is done to
 	 * specific dimensions but to make fonts look sharp, the app turns off logical
-	 * presentation while drawing text.
+	 * presentation while drawing text, for example.
 	 *
-	 * Letterboxing will only happen if logical presentation is enabled during
-	 * SDL_RenderPresent; be sure to reenable it first if you were using it.
+	 * For the renderer's window, letterboxing is drawn into the framebuffer if
+	 * logical presentation is enabled during SDL_RenderPresent; be sure to
+	 * reenable it before presenting if you were toggling it, otherwise the
+	 * letterbox areas might have artifacts from previous frames (or artifacts
+	 * from external overlays, etc). Letterboxing is never drawn into texture
+	 * render targets; be sure to call SDL_RenderClear() before drawing into the
+	 * texture so the letterboxing areas are cleared, if appropriate.
 	 *
 	 * You can convert coordinates in an event into rendering coordinates using
 	 * SDL_ConvertEventToRenderCoordinates().
@@ -1382,6 +1404,9 @@ public static //extension SDL3
 	 * This function gets the width and height of the logical rendering output, or
 	 * the output size in pixels if a logical resolution is not enabled.
 	 *
+	 * Each render target has its own logical presentation state. This function
+	 * gets the state for the current render target.
+	 * 
 	 * \param renderer the rendering context.
 	 * \param w an int32 to be filled with the width.
 	 * \param h an int32 to be filled with the height.
@@ -1405,6 +1430,9 @@ public static //extension SDL3
 	 * presentation is disabled, it will fill the rectangle with the output size,
 	 * in pixels.
 	 *
+	 * Each render target has its own logical presentation state. This function
+	 * gets the rectangle for the current render target.
+	 * 
 	 * \param renderer the rendering context.
 	 * \param rect a pointer filled in with the final presentation rectangle, may
 	 *             be NULL.
@@ -1521,6 +1549,9 @@ public static //extension SDL3
 	 *
 	 * The area's width and height must be >= 0.
 	 *
+	 * Each render target has its own viewport. This function sets the viewport
+	 * for the current render target.
+	 *
 	 * \param renderer the rendering context.
 	 * \param rect the SDL_Rect structure representing the drawing area, or NULL
 	 *             to set the viewport to the entire target.
@@ -1539,6 +1570,9 @@ public static //extension SDL3
 	/**
 	 * Get the drawing area for the current target.
 	 *
+	 * Each render target has its own viewport. This function gets the viewport
+	 * for the current render target.
+	 * 
 	 * \param renderer the rendering context.
 	 * \param rect an SDL_Rect structure filled in with the current drawing area.
 	 * \returns true on success or false on failure; call SDL_GetError() for more
@@ -1560,6 +1594,9 @@ public static //extension SDL3
 	 * whether you should restore a specific rectangle or NULL. Note that the
 	 * viewport is always reset when changing rendering targets.
 	 *
+	 * Each render target has its own viewport. This function checks the viewport
+	 * for the current render target.
+	 * 
 	 * \param renderer the rendering context.
 	 * \returns true if the viewport was set to a specific rectangle, or false if
 	 *          it was set to NULL (the entire target).
@@ -1598,6 +1635,9 @@ public static //extension SDL3
 	/**
 	 * Set the clip rectangle for rendering on the specified target.
 	 *
+	 * Each render target has its own clip rectangle. This function sets the
+	 * cliprect for the current render target.
+	 * 
 	 * \param renderer the rendering context.
 	 * \param rect an SDL_Rect structure representing the clip area, relative to
 	 *             the viewport, or NULL to disable clipping.
@@ -1616,6 +1656,9 @@ public static //extension SDL3
 	/**
 	 * Get the clip rectangle for the current target.
 	 *
+	 * Each render target has its own clip rectangle. This function gets the
+	 * cliprect for the current render target.
+	 * 
 	 * \param renderer the rendering context.
 	 * \param rect an SDL_Rect structure filled in with the current clipping area
 	 *             or an empty rectangle if clipping is disabled.
@@ -1632,8 +1675,11 @@ public static //extension SDL3
 	[CLink] public static extern bool SDL_GetRenderClipRect(SDL_Renderer* renderer, SDL_Rect* rect);
 
 	/**
-	 * Get whether clipping is enabled on the given renderer.
+	 * Get whether clipping is enabled on the given render target.
 	 *
+	 * Each render target has its own clip rectangle. This function checks the
+	 * cliprect for the current render target.
+	 * 
 	 * \param renderer the rendering context.
 	 * \returns true if clipping is enabled or false if not; call SDL_GetError()
 	 *          for more information.
@@ -1646,7 +1692,7 @@ public static //extension SDL3
 	 * \sa SDL_SetRenderClipRect
 	 */
 	[CLink] public static extern bool SDL_RenderClipEnabled(SDL_Renderer* renderer);
-	
+
 	/**
 	 * Set the drawing scale for rendering on the current target.
 	 *
@@ -1658,6 +1704,9 @@ public static //extension SDL3
 	 * will be handled using the appropriate quality hints. For best results use
 	 * integer scaling factors.
 	 *
+	 * Each render target has its own scale. This function sets the scale for the
+	 * current render target.
+	 * 
 	 * \param renderer the rendering context.
 	 * \param scaleX the horizontal scaling factor.
 	 * \param scaleY the vertical scaling factor.
@@ -1674,6 +1723,9 @@ public static //extension SDL3
 
 	/**
 	 * Get the drawing scale for the current target.
+	 *
+	 * Each render target has its own scale. This function gets the scale for the
+	 * current render target.
 	 *
 	 * \param renderer the rendering context.
 	 * \param scaleX a pointer filled in with the horizontal scaling factor.
@@ -1738,7 +1790,7 @@ public static //extension SDL3
 	 * \sa SDL_SetRenderDrawColor
 	 */
 	[CLink] public static extern bool SDL_SetRenderDrawColorFloat(SDL_Renderer* renderer, float r, float g, float b, float a);
-	
+
 	/**
 	 * Get the color used for drawing operations (Rect, Line and Clear).
 	 *
@@ -1810,7 +1862,7 @@ public static //extension SDL3
 	 * \sa SDL_GetRenderColorScale
 	 */
 	[CLink] public static extern bool SDL_SetRenderColorScale(SDL_Renderer* renderer, float scale);
-	
+
 	/**
 	 * Get the color scale used for render operations.
 	 *
@@ -1986,7 +2038,7 @@ public static //extension SDL3
 	 * \sa SDL_RenderRect
 	 */
 	[CLink] public static extern bool SDL_RenderRects(SDL_Renderer* renderer, SDL_FRect* rects, int32 count);
-	
+
 	/**
 	 * Fill a rectangle on the current rendering target with the drawing color at
 	 * subpixel precision.
@@ -2132,7 +2184,7 @@ public static //extension SDL3
 	 * \sa SDL_RenderTexture
 	 */
 	[CLink] public static extern bool SDL_RenderTextureTiled(SDL_Renderer* renderer, SDL_Texture* texture, SDL_FRect* srcrect, float scale, SDL_FRect* dstrect);
-	
+
 	/**
 	 * Perform a scaled copy using the 9-grid algorithm to the current rendering
 	 * target at subpixel precision.
@@ -2166,7 +2218,7 @@ public static //extension SDL3
 	 * \sa SDL_RenderTexture
 	 */
 	[CLink] public static extern bool SDL_RenderTexture9Grid(SDL_Renderer* renderer, SDL_Texture* texture, SDL_FRect* srcrect, float left_width, float right_width, float top_height, float bottom_height, float scale, SDL_FRect* dstrect);
-	
+
 	/**
 	 * Render a list of triangles, optionally using a texture and indices into the
 	 * vertex array Color and alpha modulation is done per vertex
@@ -2232,16 +2284,22 @@ public static //extension SDL3
 	/**
 	 * Read pixels from the current rendering target.
 	 *
-	 * The returned surface should be freed with SDL_DestroySurface()
+	 * The returned surface contains pixels inside the desired area clipped to the
+	 * current viewport, and should be freed with SDL_DestroySurface().
+	 *
+	 * Note that this returns the actual pixels on the screen, so if you are using
+	 * logical presentation you should use SDL_GetRenderLogicalPresentationRect()
+	 * to get the area containing your content.
 	 *
 	 * **WARNING**: This is a very slow operation, and should not be used
 	 * frequently. If you're using this on the main rendering target, it should be
 	 * called after rendering and before SDL_RenderPresent().
 	 *
 	 * \param renderer the rendering context.
-	 * \param rect an SDL_Rect structure representing the area in pixels relative
-	 *             to the to current viewport, or NULL for the entire viewport.
-	 * \returns a new SDL_Surface on success or NULL on failure; call
+	 * \param rect an SDL_Rect structure representing the area to read, which will
+	 *             be clipped to the current viewport, or NULL for the entire
+	 *             viewport.
+	  * \returns a new SDL_Surface on success or NULL on failure; call
 	 *          SDL_GetError() for more information.
 	 *
 	 * \threadsafety This function should only be called on the main thread.
@@ -2299,7 +2357,7 @@ public static //extension SDL3
 	 * \sa SDL_SetRenderDrawColor
 	 */
 	[CLink] public static extern bool SDL_RenderPresent(SDL_Renderer* renderer);
-	
+
 	/**
 	 * Destroy the specified texture.
 	 *
@@ -2482,7 +2540,7 @@ public static //extension SDL3
 	 * \sa SDL_SetRenderVSync
 	 */
 	[CLink] public static extern bool SDL_GetRenderVSync(SDL_Renderer* renderer, int32* vsync);
-	
+
 	/**
 	 * The size, in pixels, of a single SDL_RenderDebugText() character.
 	 *

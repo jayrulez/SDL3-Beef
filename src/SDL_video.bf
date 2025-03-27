@@ -228,9 +228,9 @@ public static //extension SDL3
 	*
 	* \since This macro is available since SDL 3.2.0.
 	*/
-	public static mixin SDL_WINDOWPOS_UNDEFINED_DISPLAY(SDL_DisplayID X)
+	public static uint32 SDL_WINDOWPOS_UNDEFINED_DISPLAY(SDL_DisplayID X)
 	{
-		(SDL_WINDOWPOS_UNDEFINED_MASK | (X))
+		return (SDL_WINDOWPOS_UNDEFINED_MASK | (X));
 	}
 
    /**
@@ -240,9 +240,9 @@ public static //extension SDL3
 	*
 	* \since This macro is available since SDL 3.2.0.
 	*/
-	public static mixin SDL_WINDOWPOS_UNDEFINED()
+	public static uint32 SDL_WINDOWPOS_UNDEFINED()
 	{
-		SDL_WINDOWPOS_UNDEFINED_DISPLAY!(0)
+		return SDL_WINDOWPOS_UNDEFINED_DISPLAY(0);
 	}
 
    /**
@@ -252,9 +252,9 @@ public static //extension SDL3
 	*
 	* \since This macro is available since SDL 3.2.0.
 	*/
-	public static mixin SDL_WINDOWPOS_ISUNDEFINED(var X)
+	public static bool SDL_WINDOWPOS_ISUNDEFINED(uint32 X)
 	{
-		(((X) & 0xFFFF0000) == SDL_WINDOWPOS_UNDEFINED_MASK)
+		return (((X) & 0xFFFF0000) == SDL_WINDOWPOS_UNDEFINED_MASK);
 	}
 
    /**
@@ -277,9 +277,9 @@ public static //extension SDL3
 	*
 	* \since This macro is available since SDL 3.2.0.
 	*/
-	public static mixin SDL_WINDOWPOS_CENTERED_DISPLAY(SDL_DisplayID X)
+	public static uint32 SDL_WINDOWPOS_CENTERED_DISPLAY(SDL_DisplayID X)
 	{
-		(SDL_WINDOWPOS_CENTERED_MASK | (X))
+		return (SDL_WINDOWPOS_CENTERED_MASK | (X));
 	}
 
    /**
@@ -289,9 +289,9 @@ public static //extension SDL3
 	*
 	* \since This macro is available since SDL 3.2.0.
 	*/
-	public static mixin SDL_WINDOWPOS_CENTERED()
+	public static uint32 SDL_WINDOWPOS_CENTERED()
 	{
-		SDL_WINDOWPOS_CENTERED_DISPLAY!(0)
+		return SDL_WINDOWPOS_CENTERED_DISPLAY(0);
 	}
 
    /**
@@ -301,9 +301,9 @@ public static //extension SDL3
 	*
 	* \since This macro is available since SDL 3.2.0.
 	*/
-	public static mixin SDL_WINDOWPOS_ISCENTERED(var X)
+	public static bool SDL_WINDOWPOS_ISCENTERED(uint32 X)
 	{
-		(((X) & 0xFFFF0000) == SDL_WINDOWPOS_CENTERED_MASK)
+		return (((X) & 0xFFFF0000) == SDL_WINDOWPOS_CENTERED_MASK);
 	}
 }
 
@@ -335,35 +335,35 @@ public typealias SDL_GLContext =  SDL_GLContextState*;
  *
  * \since This datatype is available since SDL 3.2.0.
  */
-public typealias SDL_EGLDisplay =  void *;
+public typealias SDL_EGLDisplay =  void*;
 
 /**
  * Opaque type for an EGL config.
  *
  * \since This datatype is available since SDL 3.2.0.
  */
-public typealias SDL_EGLConfig =  void *;
+public typealias SDL_EGLConfig =  void*;
 
 /**
  * Opaque type for an EGL surface.
  *
  * \since This datatype is available since SDL 3.2.0.
  */
-public typealias SDL_EGLSurface =  void *;
+public typealias SDL_EGLSurface =  void*;
 
 /**
  * An EGL attribute, used when creating an EGL context.
  *
  * \since This datatype is available since SDL 3.2.0.
  */
-public typealias SDL_EGLAttrib =  int;//intptr;
+public typealias SDL_EGLAttrib =  int; //intptr;
 
 /**
  * An EGL integer attribute, used when creating an EGL surface.
  *
  * \since This datatype is available since SDL 3.2.0.
  */
-public typealias SDL_EGLint =  int32 ;
+public typealias SDL_EGLint =  int32;
 
 /**
  * EGL platform attribute initialization callback.
@@ -388,7 +388,7 @@ public typealias SDL_EGLint =  int32 ;
  *
  * \sa SDL_EGL_SetAttributeCallbacks
  */
-public typealias SDL_EGLAttribArrayCallback = function SDL_EGLAttrib*(void *userdata);
+public typealias SDL_EGLAttribArrayCallback = function SDL_EGLAttrib*(void* userdata);
 
 /**
  * EGL surface/context attribute initialization callback types.
@@ -419,7 +419,7 @@ public typealias SDL_EGLAttribArrayCallback = function SDL_EGLAttrib*(void *user
  *
  * \sa SDL_EGL_SetAttributeCallbacks
  */
-public typealias SDL_EGLIntArrayCallback = function SDL_EGLint *(void *userdata, SDL_EGLDisplay display, SDL_EGLConfig config);
+public typealias SDL_EGLIntArrayCallback = function SDL_EGLint*(void* userdata, SDL_EGLDisplay display, SDL_EGLConfig config);
 
 /**
  * An enumeration of OpenGL configuration attributes.
@@ -438,36 +438,36 @@ public typealias SDL_EGLIntArrayCallback = function SDL_EGLint *(void *userdata,
  *
  * \since This enum is available since SDL 3.2.0.
  */
-public enum SDL_GLAttr: int32
+public enum SDL_GLAttr : int32
 {
-    SDL_GL_RED_SIZE,                    /**< the minimum number of bits for the red channel of the color buffer; defaults to 3. */
-    SDL_GL_GREEN_SIZE,                  /**< the minimum number of bits for the green channel of the color buffer; defaults to 3. */
-    SDL_GL_BLUE_SIZE,                   /**< the minimum number of bits for the blue channel of the color buffer; defaults to 2. */
-    SDL_GL_ALPHA_SIZE,                  /**< the minimum number of bits for the alpha channel of the color buffer; defaults to 0. */
-    SDL_GL_BUFFER_SIZE,                 /**< the minimum number of bits for frame buffer size; defaults to 0. */
-    SDL_GL_DOUBLEBUFFER,                /**< whether the output is single or double buffered; defaults to double buffering on. */
-    SDL_GL_DEPTH_SIZE,                  /**< the minimum number of bits in the depth buffer; defaults to 16. */
-    SDL_GL_STENCIL_SIZE,                /**< the minimum number of bits in the stencil buffer; defaults to 0. */
-    SDL_GL_ACCUM_RED_SIZE,              /**< the minimum number of bits for the red channel of the accumulation buffer; defaults to 0. */
-    SDL_GL_ACCUM_GREEN_SIZE,            /**< the minimum number of bits for the green channel of the accumulation buffer; defaults to 0. */
-    SDL_GL_ACCUM_BLUE_SIZE,             /**< the minimum number of bits for the blue channel of the accumulation buffer; defaults to 0. */
-    SDL_GL_ACCUM_ALPHA_SIZE,            /**< the minimum number of bits for the alpha channel of the accumulation buffer; defaults to 0. */
-    SDL_GL_STEREO,                      /**< whether the output is stereo 3D; defaults to off. */
-    SDL_GL_MULTISAMPLEBUFFERS,          /**< the number of buffers used for multisample anti-aliasing; defaults to 0. */
-    SDL_GL_MULTISAMPLESAMPLES,          /**< the number of samples used around the current pixel used for multisample anti-aliasing. */
-    SDL_GL_ACCELERATED_VISUAL,          /**< set to 1 to require hardware acceleration, set to 0 to force software rendering; defaults to allow either. */
-    SDL_GL_RETAINED_BACKING,            /**< not used (deprecated). */
-    SDL_GL_CONTEXT_MAJOR_VERSION,       /**< OpenGL context major version. */
-    SDL_GL_CONTEXT_MINOR_VERSION,       /**< OpenGL context minor version. */
-    SDL_GL_CONTEXT_FLAGS,               /**< some combination of 0 or more of elements of the SDL_GLContextFlag enumeration; defaults to 0. */
-    SDL_GL_CONTEXT_PROFILE_MASK,        /**< type of GL context (Core, Compatibility, ES). See SDL_GLProfile; default value depends on platform. */
-    SDL_GL_SHARE_WITH_CURRENT_CONTEXT,  /**< OpenGL context sharing; defaults to 0. */
-    SDL_GL_FRAMEBUFFER_SRGB_CAPABLE,    /**< requests sRGB capable visual; defaults to 0. */
-    SDL_GL_CONTEXT_RELEASE_BEHAVIOR,    /**< sets context the release behavior. See SDL_GLContextReleaseFlag; defaults to FLUSH. */
-    SDL_GL_CONTEXT_RESET_NOTIFICATION,  /**< set context reset notification. See SDL_GLContextResetNotification; defaults to NO_NOTIFICATION. */
-    SDL_GL_CONTEXT_NO_ERROR,
-    SDL_GL_FLOATBUFFERS,
-    SDL_GL_EGL_PLATFORM
+	SDL_GL_RED_SIZE, /**< the minimum number of bits for the red channel of the color buffer; defaults to 3. */
+	SDL_GL_GREEN_SIZE, /**< the minimum number of bits for the green channel of the color buffer; defaults to 3. */
+	SDL_GL_BLUE_SIZE, /**< the minimum number of bits for the blue channel of the color buffer; defaults to 2. */
+	SDL_GL_ALPHA_SIZE, /**< the minimum number of bits for the alpha channel of the color buffer; defaults to 0. */
+	SDL_GL_BUFFER_SIZE, /**< the minimum number of bits for frame buffer size; defaults to 0. */
+	SDL_GL_DOUBLEBUFFER, /**< whether the output is single or double buffered; defaults to double buffering on. */
+	SDL_GL_DEPTH_SIZE, /**< the minimum number of bits in the depth buffer; defaults to 16. */
+	SDL_GL_STENCIL_SIZE, /**< the minimum number of bits in the stencil buffer; defaults to 0. */
+	SDL_GL_ACCUM_RED_SIZE, /**< the minimum number of bits for the red channel of the accumulation buffer; defaults to 0. */
+	SDL_GL_ACCUM_GREEN_SIZE, /**< the minimum number of bits for the green channel of the accumulation buffer; defaults to 0. */
+	SDL_GL_ACCUM_BLUE_SIZE, /**< the minimum number of bits for the blue channel of the accumulation buffer; defaults to 0. */
+	SDL_GL_ACCUM_ALPHA_SIZE, /**< the minimum number of bits for the alpha channel of the accumulation buffer; defaults to 0. */
+	SDL_GL_STEREO, /**< whether the output is stereo 3D; defaults to off. */
+	SDL_GL_MULTISAMPLEBUFFERS, /**< the number of buffers used for multisample anti-aliasing; defaults to 0. */
+	SDL_GL_MULTISAMPLESAMPLES, /**< the number of samples used around the current pixel used for multisample anti-aliasing. */
+	SDL_GL_ACCELERATED_VISUAL, /**< set to 1 to require hardware acceleration, set to 0 to force software rendering; defaults to allow either. */
+	SDL_GL_RETAINED_BACKING, /**< not used (deprecated). */
+	SDL_GL_CONTEXT_MAJOR_VERSION, /**< OpenGL context major version. */
+	SDL_GL_CONTEXT_MINOR_VERSION, /**< OpenGL context minor version. */
+	SDL_GL_CONTEXT_FLAGS, /**< some combination of 0 or more of elements of the SDL_GLContextFlag enumeration; defaults to 0. */
+	SDL_GL_CONTEXT_PROFILE_MASK, /**< type of GL context (Core, Compatibility, ES). See SDL_GLProfile; default value depends on platform. */
+	SDL_GL_SHARE_WITH_CURRENT_CONTEXT, /**< OpenGL context sharing; defaults to 0. */
+	SDL_GL_FRAMEBUFFER_SRGB_CAPABLE, /**< requests sRGB capable visual; defaults to 0. */
+	SDL_GL_CONTEXT_RELEASE_BEHAVIOR, /**< sets context the release behavior. See SDL_GLContextReleaseFlag; defaults to FLUSH. */
+	SDL_GL_CONTEXT_RESET_NOTIFICATION, /**< set context reset notification. See SDL_GLContextResetNotification; defaults to NO_NOTIFICATION. */
+	SDL_GL_CONTEXT_NO_ERROR,
+	SDL_GL_FLOATBUFFERS,
+	SDL_GL_EGL_PLATFORM
 }
 
 /**
@@ -475,50 +475,54 @@ public enum SDL_GLAttr: int32
  *
  * \since This datatype is available since SDL 3.2.0.
  */
-public enum SDL_GLProfile : uint32{
- SDL_GL_CONTEXT_PROFILE_CORE           =0x0001,  /**< OpenGL Core Profile context */
- SDL_GL_CONTEXT_PROFILE_COMPATIBILITY  =0x0002,  /**< OpenGL Compatibility Profile context */
- SDL_GL_CONTEXT_PROFILE_ES             =0x0004,  /**< GLX_CONTEXT_ES2_PROFILE_BIT_EXT */
+public enum SDL_GLProfile : uint32
+{
+	SDL_GL_CONTEXT_PROFILE_CORE           = 0x0001, /**< OpenGL Core Profile context */
+	SDL_GL_CONTEXT_PROFILE_COMPATIBILITY  = 0x0002, /**< OpenGL Compatibility Profile context */
+	SDL_GL_CONTEXT_PROFILE_ES             = 0x0004, /**< GLX_CONTEXT_ES2_PROFILE_BIT_EXT */
 }
 
 /**
- * Possible flags to be set for the SDL_GL_CONTEXT_FLAGS attribute.
- *
- * \since This datatype is available since SDL 3.2.0.
- */
-public enum SDL_GLContextFlag : uint32 {
- SDL_GL_CONTEXT_DEBUG_FLAG              =0x0001,
- SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG =0x0002,
- SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG      =0x0004,
- SDL_GL_CONTEXT_RESET_ISOLATION_FLAG    =0x0008,
+* Possible flags to be set for the SDL_GL_CONTEXT_FLAGS attribute.
+*
+* \since This datatype is available since SDL 3.2.0.
+*/
+public enum SDL_GLContextFlag : uint32
+{
+	SDL_GL_CONTEXT_DEBUG_FLAG              = 0x0001,
+	SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG = 0x0002,
+	SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG      = 0x0004,
+	SDL_GL_CONTEXT_RESET_ISOLATION_FLAG    = 0x0008,
 }
 
 /**
- * Possible values to be set for the SDL_GL_CONTEXT_RELEASE_BEHAVIOR
- * attribute.
- *
- * \since This datatype is available since SDL 3.2.0.
- */
-public enum SDL_GLContextReleaseFlag : uint32 {
- SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE   =0x0000,
- SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH  =0x0001,
+* Possible values to be set for the SDL_GL_CONTEXT_RELEASE_BEHAVIOR
+* attribute.
+*
+* \since This datatype is available since SDL 3.2.0.
+*/
+public enum SDL_GLContextReleaseFlag : uint32
+{
+	SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE   = 0x0000,
+	SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH  = 0x0001,
 }
 
 /**
- * Possible values to be set SDL_GL_CONTEXT_RESET_NOTIFICATION attribute.
- *
- * \since This datatype is available since SDL 3.2.0.
- */
-public enum SDL_GLContextResetNotification : uint32 {
- SDL_GL_CONTEXT_RESET_NO_NOTIFICATION  =0x0000,
- SDL_GL_CONTEXT_RESET_LOSE_CONTEXT     =0x0001,
+* Possible values to be set SDL_GL_CONTEXT_RESET_NOTIFICATION attribute.
+*
+* \since This datatype is available since SDL 3.2.0.
+*/
+public enum SDL_GLContextResetNotification : uint32
+{
+	SDL_GL_CONTEXT_RESET_NO_NOTIFICATION  = 0x0000,
+	SDL_GL_CONTEXT_RESET_LOSE_CONTEXT     = 0x0001,
 }
 
 public static //extension SDL3
 {
 
 	/* Function prototypes */
-	
+
 	/**
 	 * Get the number of video drivers compiled into SDL.
 	 *
@@ -1829,7 +1833,7 @@ public static //extension SDL3
 	 * \sa SDL_SyncWindow
 	 */
 	[CLink] public static extern bool SDL_SetWindowAspectRatio(SDL_Window* window, float min_aspect, float max_aspect);
-	
+
 	/**
 	 * Get the size of a window's client area.
 	 *
@@ -1885,7 +1889,7 @@ public static //extension SDL3
 	 * \sa SDL_GetWindowSize
 	 */
 	[CLink] public static extern bool SDL_GetWindowBordersSize(SDL_Window* window, int32* top, int32* left, int32* bottom, int32* right);
-	
+
 	/**
 	 * Get the size of a window's client area, in pixels.
 	 *
@@ -1943,7 +1947,7 @@ public static //extension SDL3
 	 * \sa SDL_SetWindowMinimumSize
 	 */
 	[CLink] public static extern bool SDL_GetWindowMinimumSize(SDL_Window* window, int32* w, int32* h);
-	
+
 	/**
 	 * Set the maximum size of a window's client area.
 	 *
@@ -2060,7 +2064,7 @@ public static //extension SDL3
 	 * \sa SDL_RaiseWindow
 	 */
 	[CLink] public static extern bool SDL_ShowWindow(SDL_Window* window);
-	
+
 	/**
 	 * Hide a window.
 	 *
@@ -2252,7 +2256,7 @@ public static //extension SDL3
 	 * \sa SDL_HINT_VIDEO_SYNC_WINDOW_OPERATIONS
 	 */
 	[CLink] public static extern bool SDL_SyncWindow(SDL_Window* window);
-	
+
 	/**
 	 * Return whether the window has a surface associated with it.
 	 *
@@ -2296,7 +2300,7 @@ public static //extension SDL3
 	 * \sa SDL_UpdateWindowSurfaceRects
 	 */
 	[CLink] public static extern SDL_Surface* SDL_GetWindowSurface(SDL_Window* window);
-	
+
 	/**
 	 * Toggle VSync for the window surface.
 	 *
@@ -2325,7 +2329,7 @@ public static //extension SDL3
 
 	public const uint32 SDL_WINDOW_SURFACE_VSYNC_DISABLED = 0;
 	public const uint32 SDL_WINDOW_SURFACE_VSYNC_ADAPTIVE  = uint32(-1);
-	
+
 	/**
 	 * Get VSync for the window surface.
 	 *
@@ -2529,7 +2533,7 @@ public static //extension SDL3
 	 * \sa SDL_SetWindowMouseGrab
 	 */
 	[CLink] public static extern bool SDL_SetWindowMouseRect(SDL_Window* window, SDL_Rect* rect);
-	
+
 	/**
 	 * Get the mouse confinement rectangle of a window.
 	 *
@@ -2619,7 +2623,7 @@ public static //extension SDL3
 	 * \sa SDL_SetWindowModal
 	 */
 	[CLink] public static extern bool SDL_SetWindowParent(SDL_Window* window, SDL_Window* parent);
-	
+
 	/**
 	 * Toggle the state of the window as modal.
 	 *
@@ -2883,7 +2887,7 @@ public static //extension SDL3
 	 *  \name OpenGL support functions
 	 */
 	/* @{ */
-	
+
 	/**
 	 * Dynamically load an OpenGL library.
 	 *
@@ -2907,7 +2911,7 @@ public static //extension SDL3
 	 * \sa SDL_GL_UnloadLibrary
 	 */
 	[CLink] public static extern bool SDL_GL_LoadLibrary(char8* path);
-	
+
 	/**
 	 * Get an OpenGL function by name.
 	 *
@@ -2962,7 +2966,7 @@ public static //extension SDL3
 	 * \sa SDL_GL_UnloadLibrary
 	 */
 	[CLink] public static extern SDL_FunctionPointer SDL_GL_GetProcAddress(char8* proc);
-	
+
 	/**
 	 * Get an EGL library function by name.
 	 *
@@ -2981,7 +2985,7 @@ public static //extension SDL3
 	 * \sa SDL_EGL_GetCurrentDisplay
 	 */
 	[CLink] public static extern SDL_FunctionPointer SDL_EGL_GetProcAddress(char8* proc);
-	
+
 	/**
 	 * Unload the OpenGL library previously loaded by SDL_GL_LoadLibrary().
 	 *
@@ -2992,7 +2996,7 @@ public static //extension SDL3
 	 * \sa SDL_GL_LoadLibrary
 	 */
 	[CLink] public static extern void SDL_GL_UnloadLibrary();
-	
+
 	/**
 	 * Check if an OpenGL extension is supported for the current context.
 	 *
@@ -3015,7 +3019,7 @@ public static //extension SDL3
 	 * \since This function is available since SDL 3.2.0.
 	 */
 	[CLink] public static extern bool SDL_GL_ExtensionSupported(char8* @extension);
-	
+
 	/**
 	 * Reset all previously set OpenGL context attributes to their default values.
 	 *
@@ -3027,7 +3031,7 @@ public static //extension SDL3
 	 * \sa SDL_GL_SetAttribute
 	 */
 	[CLink] public static extern void SDL_GL_ResetAttributes();
-	
+
 	/**
 	 * Set an OpenGL window attribute before window creation.
 	 *
@@ -3050,7 +3054,7 @@ public static //extension SDL3
 	 * \sa SDL_GL_ResetAttributes
 	 */
 	[CLink] public static extern bool SDL_GL_SetAttribute(SDL_GLAttr attr, int32 value);
-	
+
 	/**
 	 * Get the actual value for an attribute from the current context.
 	 *
@@ -3067,8 +3071,8 @@ public static //extension SDL3
 	 * \sa SDL_GL_ResetAttributes
 	 * \sa SDL_GL_SetAttribute
 	 */
-	[CLink] public static extern bool SDL_GL_GetAttribute(SDL_GLAttr attr, int32 *value);
-	
+	[CLink] public static extern bool SDL_GL_GetAttribute(SDL_GLAttr attr, int32* value);
+
 	/**
 	 * Create an OpenGL context for an OpenGL window, and make it current.
 	 *
@@ -3091,8 +3095,8 @@ public static //extension SDL3
 	 * \sa SDL_GL_DestroyContext
 	 * \sa SDL_GL_MakeCurrent
 	 */
-	[CLink] public static extern SDL_GLContext SDL_GL_CreateContext(SDL_Window *window);
-	
+	[CLink] public static extern SDL_GLContext SDL_GL_CreateContext(SDL_Window* window);
+
 	/**
 	 * Set up an OpenGL context for rendering into an OpenGL window.
 	 *
@@ -3109,8 +3113,8 @@ public static //extension SDL3
 	 *
 	 * \sa SDL_GL_CreateContext
 	 */
-	[CLink] public static extern bool SDL_GL_MakeCurrent(SDL_Window *window, SDL_GLContext context);
-	
+	[CLink] public static extern bool SDL_GL_MakeCurrent(SDL_Window* window, SDL_GLContext context);
+
 	/**
 	 * Get the currently active OpenGL window.
 	 *
@@ -3121,8 +3125,8 @@ public static //extension SDL3
 	 *
 	 * \since This function is available since SDL 3.2.0.
 	 */
-	[CLink] public static extern SDL_Window * SDL_GL_GetCurrentWindow();
-	
+	[CLink] public static extern SDL_Window* SDL_GL_GetCurrentWindow();
+
 	/**
 	 * Get the currently active OpenGL context.
 	 *
@@ -3136,7 +3140,7 @@ public static //extension SDL3
 	 * \sa SDL_GL_MakeCurrent
 	 */
 	[CLink] public static extern SDL_GLContext SDL_GL_GetCurrentContext();
-	
+
 	/**
 	 * Get the currently active EGL display.
 	 *
@@ -3148,7 +3152,7 @@ public static //extension SDL3
 	 * \since This function is available since SDL 3.2.0.
 	 */
 	[CLink] public static extern SDL_EGLDisplay SDL_EGL_GetCurrentDisplay();
-	
+
 	/**
 	 * Get the currently active EGL config.
 	 *
@@ -3160,7 +3164,7 @@ public static //extension SDL3
 	 * \since This function is available since SDL 3.2.0.
 	 */
 	[CLink] public static extern SDL_EGLConfig SDL_EGL_GetCurrentConfig();
-	
+
 	/**
 	 * Get the EGL surface associated with the window.
 	 *
@@ -3172,8 +3176,8 @@ public static //extension SDL3
 	 *
 	 * \since This function is available since SDL 3.2.0.
 	 */
-	[CLink] public static extern SDL_EGLSurface SDL_EGL_GetWindowSurface(SDL_Window *window);
-	
+	[CLink] public static extern SDL_EGLSurface SDL_EGL_GetWindowSurface(SDL_Window* window);
+
 	/**
 	 * Sets the callbacks for defining custom EGLAttrib arrays for EGL
 	 * initialization.
@@ -3195,9 +3199,9 @@ public static //extension SDL3
 	 * \since This function is available since SDL 3.2.0.
 	 */
 	[CLink] public static extern void SDL_EGL_SetAttributeCallbacks(SDL_EGLAttribArrayCallback platformAttribCallback,
-	                                                               SDL_EGLIntArrayCallback surfaceAttribCallback,
-	                                                               SDL_EGLIntArrayCallback contextAttribCallback, void *userdata);
-	
+		SDL_EGLIntArrayCallback surfaceAttribCallback,
+		SDL_EGLIntArrayCallback contextAttribCallback, void* userdata);
+
 	/**
 	 * Set the swap interval for the current OpenGL context.
 	 *
@@ -3228,7 +3232,7 @@ public static //extension SDL3
 	 * \sa SDL_GL_GetSwapInterval
 	 */
 	[CLink] public static extern bool SDL_GL_SetSwapInterval(int32 interval);
-	
+
 	/**
 	 * Get the swap interval for the current OpenGL context.
 	 *
@@ -3248,8 +3252,8 @@ public static //extension SDL3
 	 *
 	 * \sa SDL_GL_SetSwapInterval
 	 */
-	[CLink] public static extern bool SDL_GL_GetSwapInterval(int32 *interval);
-	
+	[CLink] public static extern bool SDL_GL_GetSwapInterval(int32* interval);
+
 	/**
 	 * Update a window with OpenGL rendering.
 	 *
@@ -3268,8 +3272,8 @@ public static //extension SDL3
 	 *
 	 * \since This function is available since SDL 3.2.0.
 	 */
-	[CLink] public static extern bool SDL_GL_SwapWindow(SDL_Window *window);
-	
+	[CLink] public static extern bool SDL_GL_SwapWindow(SDL_Window* window);
+
 	/**
 	 * Delete an OpenGL context.
 	 *
@@ -3284,7 +3288,7 @@ public static //extension SDL3
 	 * \sa SDL_GL_CreateContext
 	 */
 	[CLink] public static extern bool SDL_GL_DestroyContext(SDL_GLContext context);
-	
-	/* @} *//* OpenGL support functions */
+
+	/* @} */ /* OpenGL support functions */
 
 }

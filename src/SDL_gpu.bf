@@ -36,14 +36,14 @@ using System;
  * can render offscreen entirely, perhaps for image processing, and not use a
  * window at all.
  *
- * Next the app prepares static data (things that are created once and used
+ * Next, the app prepares static data (things that are created once and used
  * over and over). For example:
  *
  * - Shaders (programs that run on the GPU): use SDL_CreateGPUShader().
- * - Vertex buffers (arrays of geometry data) and other data rendering will
- *   need: use SDL_UploadToGPUBuffer().
- * - Textures (images): use SDL_UploadToGPUTexture().
- * - Samplers (how textures should be read from): use SDL_CreateGPUSampler().
+ * - Vertex buffers (arrays of geometry data) and other rendering data: use
+ *   SDL_CreateGPUBuffer() and SDL_UploadToGPUBuffer().
+ * - Textures (images): use SDL_CreateGPUTexture() and
+ *   SDL_UploadToGPUTexture(). 
  * - Render pipelines (precalculated rendering state): use
  *   SDL_CreateGPUGraphicsPipeline()
  *
@@ -1487,9 +1487,16 @@ public enum SDL_GPUSwapchainComposition : int32
 /**
  * A structure specifying the parameters of a sampler.
  *
+ * Note that mip_lod_bias is a no-op for the Metal driver. For Metal, LOD bias
+ * must be applied via shader instead.
+ *
  * \since This function is available since SDL 3.2.0.
  *
  * \sa SDL_CreateGPUSampler
+ * \sa SDL_GPUFilter
+ * \sa SDL_GPUSamplerMipmapMode
+ * \sa SDL_GPUSamplerAddressMode
+ * \sa SDL_GPUCompareOp
  */
 [CRepr] public struct SDL_GPUSamplerCreateInfo
 {
@@ -1528,14 +1535,14 @@ public enum SDL_GPUSwapchainComposition : int32
  * \since This struct is available since SDL 3.2.0.
  *
  * \sa SDL_GPUVertexAttribute
- * \sa SDL_GPUVertexInputState
+ * \sa SDL_GPUVertexInputRate
  */
 [CRepr] public struct SDL_GPUVertexBufferDescription
 {
 	public uint32 slot; /**< The binding slot of the vertex buffer. */
 	public uint32 pitch; /**< The byte pitch between consecutive elements of the vertex buffer. */
 	public SDL_GPUVertexInputRate input_rate; /**< Whether attribute addressing is a function of the vertex index or instance index. */
-	public uint32 instance_step_rate; /**< The number of instances to draw using the same per-instance data before advancing in the instance buffer by one element. Ignored unless input_rate is SDL_GPU_VERTEXINPUTRATE_INSTANCE */
+	public uint32 instance_step_rate; /**< Reserved for future use. Must be set to 0. */
 }
 
 /**
@@ -1705,10 +1712,13 @@ public enum SDL_GPUSwapchainComposition : int32
  * A structure specifying the parameters of the graphics pipeline rasterizer
  * state.
  *
- * NOTE: Some backend APIs (D3D11/12) will enable depth clamping even if
- * enable_depth_clip is true. If you rely on this clamp+clip behavior,
- * consider enabling depth clip and then manually clamping depth in your
- * fragment shaders on Metal and Vulkan.
+ * Note that SDL_GPU_FILLMODE_LINE is not supported on many Android devices.
+ * For those devices, the fill mode will automatically fall back to FILL.
+ *
+ * Also note that the D3D12 driver will enable depth clamping even if
+ * enable_depth_clip is true. If you need this clamp+clip behavior, consider
+ * enabling depth clip and then manually clamping depth in your fragment
+ * shaders on Metal and Vulkan.
  *
  * \since This struct is available since SDL 3.2.0.
  *
@@ -1739,8 +1749,8 @@ public enum SDL_GPUSwapchainComposition : int32
 [CRepr] public struct SDL_GPUMultisampleState
 {
 	public SDL_GPUSampleCount sample_count; /**< The number of samples to be used in rasterization. */
-	public uint32 sample_mask; /**< Determines which samples get updated in the render targets. Treated as 0xFFFFFFFF if enable_mask is false. */
-	public bool enable_mask; /**< Enables sample masking. */
+	public uint32 sample_mask; /**< Reserved for future use. Must be set to 0. */
+	public bool enable_mask; /**< Reserved for future use. Must be set to false. */
 	public uint8 padding1;
 	public uint8 padding2;
 	public uint8 padding3;
@@ -1790,6 +1800,8 @@ public enum SDL_GPUSwapchainComposition : int32
  * \since This struct is available since SDL 3.2.0.
  *
  * \sa SDL_GPUGraphicsPipelineCreateInfo
+ * \sa SDL_GPUColorTargetDescription
+ * \sa SDL_GPUTextureFormat
  */
 [CRepr] public struct SDL_GPUGraphicsPipelineTargetInfo
 {
@@ -3914,6 +3926,8 @@ public static //extension SDL3
 	 * The swapchain texture is managed by the implementation and must not be
 	 * freed by the user. You MUST NOT call this function from any thread other
 	 * than the one that created the window.
+	 * The swapchain texture is write-only and cannot be used as a sampler or for
+	 * another reading operation.
 	 *
 	 * \param command_buffer a command buffer.
 	 * \param window a window that has been claimed.
@@ -3933,6 +3947,7 @@ public static //extension SDL3
 	 *
 	 * \sa SDL_SubmitGPUCommandBuffer
 	 * \sa SDL_SubmitGPUCommandBufferAndAcquireFence
+	 * \sa SDL_AcquireGPUSwapchainTexture
 	 */
 	[CLink] public static extern bool SDL_WaitAndAcquireGPUSwapchainTexture(
 		SDL_GPUCommandBuffer* command_buffer,

@@ -6,17 +6,17 @@ TargetType = "BeefLib"
 StartupObject = "SDL3Native.Program"
 
 [Configs.Debug.Win32]
-LibPaths = ["$(ProjectDir)/dist/SDL3-3.2.4/lib/x86/SDL3.lib"]
-PostBuildCmds = ["CopyToDependents(\"$(ProjectDir)/dist/SDL3-3.2.4/lib/x86/*.dll\")"]
+LibPaths = ["$(ProjectDir)/dist/SDL3-3.2.8/lib/x86/SDL3.lib"]
+PostBuildCmds = ["CopyToDependents(\"$(ProjectDir)/dist/SDL3-3.2.8/lib/x86/*.dll\")"]
 
 [Configs.Debug.Win64]
-LibPaths = ["$(ProjectDir)/dist/SDL3-3.2.4/lib/x64/SDL3.lib"]
-PostBuildCmds = ["CopyToDependents(\"$(ProjectDir)/dist/SDL3-3.2.4/lib/x64/*.dll\")"]
+LibPaths = ["$(ProjectDir)/dist/SDL3-3.2.8/lib/x64/SDL3.lib"]
+PostBuildCmds = ["CopyToDependents(\"$(ProjectDir)/dist/SDL3-3.2.8/lib/x64/*.dll\")"]
 
 [Configs.Release.Win32]
-LibPaths = ["$(ProjectDir)/dist/SDL3-3.2.4/lib/x86/SDL3.lib"]
-PostBuildCmds = ["CopyToDependents(\"$(ProjectDir)/dist/SDL3-3.2.4/lib/x86/*.dll\")"]
+LibPaths = ["$(ProjectDir)/dist/SDL3-3.2.8/lib/x86/SDL3.lib"]
+PostBuildCmds = ["CopyToDependents(\"$(ProjectDir)/dist/SDL3-3.2.8/lib/x86/*.dll\")"]
 
 [Configs.Release.Win64]
-LibPaths = ["$(ProjectDir)/dist/SDL3-3.2.4/lib/x64/SDL3.lib"]
-PostBuildCmds = ["CopyToDependents(\"$(ProjectDir)/dist/SDL3-3.2.4/lib/x64/*.dll\")"]
+LibPaths = ["$(ProjectDir)/dist/SDL3-3.2.8/lib/x64/SDL3.lib"]
+PostBuildCmds = ["CopyToDependents(\"$(ProjectDir)/dist/SDL3-3.2.8/lib/x64/*.dll\")"]
