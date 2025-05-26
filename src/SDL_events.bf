@@ -471,6 +471,8 @@ public enum SDL_EventType : int32
 	public SDL_MouseWheelDirection direction; /**< Set to one of the SDL_MOUSEWHEEL_* defines. When FLIPPED the values in X and Y will be opposite. Multiply by -1 to change them back */
 	public float mouse_x; /**< X coordinate, relative to window */
 	public float mouse_y; /**< Y coordinate, relative to window */
+    public int32 integer_x;   /**< The amount scrolled horizontally, accumulated to whole scroll "ticks" (added in 3.2.12) */
+    public int32 integer_y;   /**< The amount scrolled vertically, accumulated to whole scroll "ticks" (added in 3.2.12) */
 }
 
 /**

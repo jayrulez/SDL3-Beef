@@ -56,7 +56,7 @@ public static //extension SDL3
 	*
 	* \since This macro is available since SDL 3.2.0.
 	*/
-	public const uint32 SDL_MICRO_VERSION  = 8;
+	public const uint32 SDL_MICRO_VERSION  = 14;
 
 	/**
 	* This macro turns the version numbers into a numeric value.

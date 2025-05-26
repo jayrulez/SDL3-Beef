@@ -1066,8 +1066,8 @@ public static //extension SDL3
 	 * A variable that specifies a GPU backend to use.
 	 *
 	 * By default, SDL will try all available GPU backends in a reasonable order
-	 * until it finds one that can work, but this hint allows the app or user to
-	 * force a specific target, such as "direct3d11" if, say, your hardware
+	 * force a specific target, such as "direct3d12" if, say, your hardware
+	 * supports Vulkan but you want to try using D3D12 instead. 
 	 * supports D3D12 but want to try using D3D11 instead.
 	 *
 	 * This hint should be set before any GPU functions are called.
@@ -3599,6 +3599,22 @@ public static //extension SDL3
 	 * \since This hint is available since SDL 3.2.0.
 	 */
 	public const char8* SDL_HINT_VIDEO_WIN_D3DCOMPILER = "SDL_VIDEO_WIN_D3DCOMPILER";
+
+	/**
+	 * A variable controlling whether SDL should call XSelectInput() to enable
+	 * input events on X11 windows wrapped by SDL windows.
+	 *
+	 * The variable can be set to the following values:
+	 *
+	 * - "0": Don't call XSelectInput(), assuming the native window code has done
+	 *   it already.
+	 * - "1": Call XSelectInput() to enable input events. (default)
+	 *
+	 * This hint should be set before creating a window.
+	 *
+	 * \since This hint is available since SDL 3.2.10.
+	 */
+	public const char8* SDL_HINT_VIDEO_X11_EXTERNAL_WINDOW_INPUT = "SDL_VIDEO_X11_EXTERNAL_WINDOW_INPUT";
 
 	/**
 	 * A variable controlling whether the X11 _NET_WM_BYPASS_COMPOSITOR hint

@@ -190,8 +190,11 @@ public static //extension SDL3
 	 *
 	 * If `size` is 0, it will be set to 1.
 	 *
-	 * If you want to allocate memory aligned to a specific alignment, consider
-	 * using SDL_aligned_alloc().
+	 * If the allocation is successful, the returned pointer is guaranteed to be
+	 * aligned to either the *fundamental alignment* (`alignof(max_align_t)` in
+	 * C11 and later) or `2 * sizeof(void *)`, whichever is smaller. Use
+	 * SDL_aligned_alloc() if you need to allocate memory aligned to an alignment
+	 * greater than this guarantee. 
 	 *
 	 * \param size the size to allocate.
 	 * \returns a pointer to the allocated memory, or NULL if allocation failed.
@@ -214,6 +217,10 @@ public static //extension SDL3
 	 *
 	 * If either of `nmemb` or `size` is 0, they will both be set to 1.
 	 *
+	 * If the allocation is successful, the returned pointer is guaranteed to be
+	 * aligned to either the *fundamental alignment* (`alignof(max_align_t)` in
+	 * C11 and later) or `2 * sizeof(void *)`, whichever is smaller.
+	 * 
 	 * \param nmemb the number of elements in the array.
 	 * \param size the size of each element of the array.
 	 * \returns a pointer to the allocated array, or NULL if allocation failed.
@@ -248,6 +255,11 @@ public static //extension SDL3
 	 * - If it returns NULL (indicating failure), then `mem` will remain valid and
 	 *   must still be freed with SDL_free().
 	 *
+	 * If the allocation is successfully resized, the returned pointer is
+	 * guaranteed to be aligned to either the *fundamental alignment*
+	 * (`alignof(max_align_t)` in C11 and later) or `2 * sizeof(void *)`,
+	 * whichever is smaller.
+	 * 
 	 * \param mem a pointer to allocated memory to reallocate, or NULL.
 	 * \param size the new size of the memory.
 	 * \returns a pointer to the newly allocated memory, or NULL if allocation

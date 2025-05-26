@@ -483,7 +483,7 @@ public struct SDL_AudioStream;
 public static //extension SDL3
 {
 	/* Function prototypes */
-	
+
 	/**
 	 * Use this function to get the number of built-in audio drivers.
 	 *
@@ -1747,7 +1747,7 @@ public static //extension SDL3
 	 * audio to the stream during this call; if needed, the request that triggered
 	 * this callback will obtain the new data immediately.
 	 *
-	 * The callback's `approx_request` argument is roughly how many bytes of
+	 * The callback's `additional_amount` argument is roughly how many bytes of
 	 * _unconverted_ data (in the stream's input format) is needed by the caller,
 	 * although this may overestimate a little for safety. This takes into account
 	 * how much is already in the stream and only asks for any extra necessary to

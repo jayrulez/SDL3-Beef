@@ -2461,9 +2461,9 @@ public static //extension SDL3
 	 * - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT`: (Direct3D 12 only)
 	 *   if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET, clear
 	 *   the texture to a depth of this value. Defaults to zero.
-	 * - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8`: (Direct3D 12
-	 *   only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,
-	 *   clear the texture to a stencil of this value. Defaults to zero.
+     * - `SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER`: (Direct3D 12
+     *   only) if the texture usage is SDL_GPU_TEXTUREUSAGE_DEPTH_STENCIL_TARGET,
+     *   clear the texture to a stencil of this Uint8 value. Defaults to zero.
 	 * - `SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING`: a name that can be displayed
 	 *   in debugging tools.
 	 *
@@ -2489,13 +2489,13 @@ public static //extension SDL3
 		SDL_GPUDevice* device,
 		SDL_GPUTextureCreateInfo* createinfo);
 
-	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT       = "SDL.gpu.texture.create.d3d12.clear.r";
-	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT       = "SDL.gpu.texture.create.d3d12.clear.g";
-	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT       = "SDL.gpu.texture.create.d3d12.clear.b";
-	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT       = "SDL.gpu.texture.create.d3d12.clear.a";
-	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT   = "SDL.gpu.texture.create.d3d12.clear.depth";
-	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8 = "SDL.gpu.texture.create.d3d12.clear.stencil";
-	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING               = "SDL.gpu.texture.create.name";
+	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT        = "SDL.gpu.texture.create.d3d12.clear.r";
+	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT        = "SDL.gpu.texture.create.d3d12.clear.g";
+	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT        = "SDL.gpu.texture.create.d3d12.clear.b";
+	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT        = "SDL.gpu.texture.create.d3d12.clear.a";
+	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT    = "SDL.gpu.texture.create.d3d12.clear.depth";
+	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER = "SDL.gpu.texture.create.d3d12.clear.stencil";
+	public const char8* SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING                = "SDL.gpu.texture.create.name";
 
 	/**
 	 * Creates a buffer object to be used in graphics or compute workflows.

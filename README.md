@@ -17,7 +17,7 @@ This project provides **Beef** bindings for **SDL3**, offering a low-level inter
 ### Installation
 1. Clone this repository:
    ```sh
-   git clone <repository-url>
+   git clone https://github.com/jayrulez/SDL3Native-Beef.git
    ```
 2. (For Windows) The required SDL binaries are included, so no additional installation is needed.
 3. (For non-Windows users) Ensure SDL3 is installed and available on your system.
@@ -37,7 +37,7 @@ class Program
 {
 	public static void Main()
 	{
-		if (!SDL_Init(SDL_INIT_VIDEO))
+		if (!SDL_Init(.SDL_INIT_VIDEO))
 		{
 			Debug.WriteLine("SDL_Init failed: {0}", SDL_GetError());
 			return;
