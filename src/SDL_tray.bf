@@ -30,7 +30,7 @@ using System;
  * these pieces.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * An opaque handle representing a toplevel system tray object.

@@ -39,7 +39,7 @@ using System;
  * SDL_SECONDS_TO_NS() and such.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 public static //extension SDL3
 {

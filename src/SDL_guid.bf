@@ -31,7 +31,7 @@ using System;
  * SDL provides functions to convert a GUID to/from a string.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * An SDL_GUID is a 128-bit identifier for an input device that identifies

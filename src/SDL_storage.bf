@@ -241,7 +241,7 @@ using System;
  * refuse to create files with those names, etc.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * Function interface for SDL_Storage.

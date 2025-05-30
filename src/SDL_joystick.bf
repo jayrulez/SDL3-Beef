@@ -51,7 +51,7 @@ using System;
  * SDL_Init(): SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * The joystick structure used to identify an SDL joystick.

@@ -17,7 +17,7 @@ This project provides **Beef** bindings for **SDL3**, offering a low-level inter
 ### Installation
 1. Clone this repository:
    ```sh
-   git clone https://github.com/jayrulez/SDL3Native-Beef.git
+   git clone https://github.com/jayrulez/SDL3-Beef.git
    ```
 2. (For Windows) The required SDL binaries are included, so no additional installation is needed.
 3. (For non-Windows users) Ensure SDL3 is installed and available on your system.
@@ -26,12 +26,12 @@ This project provides **Beef** bindings for **SDL3**, offering a low-level inter
 ### Usage
 Add SDLNative as a dependency to your Beef project:
 ```beef
-using SDL3Native;
+using SDL3;
 ```
 Example: Creating a window
 ```beef
 using System.Diagnostics;
-using SDL3Native;
+using SDL3;
 
 class Program
 {

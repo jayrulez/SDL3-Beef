@@ -32,7 +32,7 @@ using System;
  * load appropriate drivers.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * The opaque structure used to identify an opened SDL sensor.

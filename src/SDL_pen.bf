@@ -36,7 +36,7 @@
  * such as pressure, tilt, rotation, etc.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * SDL pen instance IDs.

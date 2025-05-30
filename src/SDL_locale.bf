@@ -32,7 +32,7 @@ using System;
  * language settings.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * A struct to provide locale data.

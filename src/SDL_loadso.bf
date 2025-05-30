@@ -54,7 +54,7 @@ using System;
  *   call that pointer after the library unloads.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * An opaque datatype that represents a loaded shared object.

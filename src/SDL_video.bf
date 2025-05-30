@@ -47,7 +47,7 @@ using System;
  * events, so start with SDL_CreateWindow() and SDL_PollEvent().
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * This is a unique ID for a display for the time it is connected to the

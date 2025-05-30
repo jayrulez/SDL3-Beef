@@ -72,7 +72,7 @@ using System;
  * come in at some point after you've started processing events.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * The structure used to identify an SDL gamepad

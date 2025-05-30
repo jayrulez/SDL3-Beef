@@ -48,7 +48,7 @@ using System;
  * All of the atomic operations that modify memory are full memory barriers.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * An atomic spinlock.

@@ -46,7 +46,7 @@ using System;
  * is known to call SDL_SetError(), so errors simply propagate through.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 public static //extension SDL3
 {

@@ -55,7 +55,7 @@ using System;
  * with a `which` field of SDL_TOUCH_MOUSEID/SDL_PEN_MOUSEID.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * This is a unique ID for a mouse for the time it is connected to the system,

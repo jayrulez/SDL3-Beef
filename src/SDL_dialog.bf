@@ -35,7 +35,7 @@ using System;
  * another thread) when the user makes a choice.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * An entry for filters for file dialogs.

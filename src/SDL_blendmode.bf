@@ -28,7 +28,7 @@ using System;
  * dictating what sort of math to do on what color components.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * A set of blend modes used in drawing operations.

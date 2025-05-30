@@ -45,7 +45,7 @@ using System.Interop;
  * options, like SDL_strlcpy(), which functions as a safer form of strcpy().
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 public static //extension SDL3
 {

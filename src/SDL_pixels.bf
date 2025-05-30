@@ -78,7 +78,7 @@ using System;
  * The matrix coefficients are used to convert between YCbCr and RGB colors.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 public static //extension SDL3
 {

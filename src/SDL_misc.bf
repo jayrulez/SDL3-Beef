@@ -26,7 +26,7 @@ using System;
  * SDL API functions that don't fit elsewhere.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 public static //extension SDL3
 {

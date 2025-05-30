@@ -303,7 +303,7 @@ using System;
  * results.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /* Type Declarations */
 

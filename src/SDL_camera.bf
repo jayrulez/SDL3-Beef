@@ -66,7 +66,7 @@ using System;
  * frames!) before using images from a camera.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * This is a unique ID for a camera device for the time it is connected to the

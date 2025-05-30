@@ -50,7 +50,7 @@ using System;
  * parts of the system.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /* General keyboard/mouse/pen state definitions */
 

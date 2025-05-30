@@ -42,7 +42,7 @@ using System;
  * removing, copying files.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 public static //extension SDL3
 {

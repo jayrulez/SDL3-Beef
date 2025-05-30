@@ -74,7 +74,7 @@ using System;
  * it doesn't support a primary selection.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 public static //extension SDL3
 {

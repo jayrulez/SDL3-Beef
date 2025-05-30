@@ -27,7 +27,7 @@ using System;
  * and runtime.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 public static //extension SDL3
 {

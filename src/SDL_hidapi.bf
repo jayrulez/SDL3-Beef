@@ -52,7 +52,7 @@ using System.Interop;
  * framework.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * An opaque handle representing an open HID device.

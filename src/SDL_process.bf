@@ -41,7 +41,7 @@ using System;
  * process was killed, terminated on its own, or is still running!
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * An opaque handle representing a system process.

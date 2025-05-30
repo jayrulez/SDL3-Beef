@@ -35,7 +35,7 @@ using System;
  * they can save their game.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * The basic state for the system's power supply.

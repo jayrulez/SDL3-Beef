@@ -34,7 +34,7 @@ freely, subject to the following restrictions:
  * other useful forms.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * A structure holding a calendar date and time broken down into its

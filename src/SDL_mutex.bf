@@ -39,7 +39,7 @@ using System;
  */
 
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  *  \name Mutex functions

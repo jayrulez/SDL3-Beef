@@ -27,7 +27,7 @@ using System;
  * integer and floating point versions.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
 * The structure that defines a point (using integers).

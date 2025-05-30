@@ -31,7 +31,7 @@ using System;
  * https://wiki.libsdl.org/SDL3/BestKeyboardPractices
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * This is a unique ID for a keyboard for the time it is connected to the

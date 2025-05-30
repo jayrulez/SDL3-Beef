@@ -30,7 +30,7 @@
  * https://wiki.libsdl.org/SDL3/BestKeyboardPractices
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * The SDL virtual key representation.

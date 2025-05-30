@@ -126,7 +126,7 @@ using System;
  * to whatever is necessary, in other audio processing scenarios.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 public static //extension SDL3
 {

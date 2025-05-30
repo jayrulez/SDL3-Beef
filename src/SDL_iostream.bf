@@ -34,7 +34,7 @@ using System;
  * both are abstract interfaces to read/write data.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * SDL_IOStream status, set by a read or write operation.

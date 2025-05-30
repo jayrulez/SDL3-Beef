@@ -38,7 +38,7 @@ using System;
  * good understanding of [CategoryMutex](CategoryMutex) as well.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * The SDL thread object.

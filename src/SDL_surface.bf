@@ -38,7 +38,7 @@ using System;
  * https://github.com/libsdl-org/SDL_image
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * The flags on an SDL_Surface.

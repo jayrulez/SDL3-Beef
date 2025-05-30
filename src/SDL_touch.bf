@@ -37,7 +37,7 @@ using System;
  * SDL_TOUCH_MOUSEID.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * A unique ID for a touch device.

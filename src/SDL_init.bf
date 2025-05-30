@@ -47,7 +47,7 @@ using System;
  * SDL_SetAppMetadataProperty().
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /* As of version 0.5, SDL is loaded dynamically into the application */
 

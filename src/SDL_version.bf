@@ -27,7 +27,7 @@ using System;
  * compiled against, and a library the app is linked to.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 public static //extension SDL3
 {

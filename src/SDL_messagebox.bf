@@ -37,7 +37,7 @@ using System;
  * single "OK" UI button. Often, this is all that is necessary.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * Message box flags.

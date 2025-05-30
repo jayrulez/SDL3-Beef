@@ -1,9 +1,9 @@
 FileVersion = 1
 
 [Project]
-Name = "SDL3Native"
+Name = "SDL3"
 TargetType = "BeefLib"
-StartupObject = "SDL3Native.Program"
+StartupObject = "SDL3.Program"
 
 [Configs.Debug.Win32]
 LibPaths = ["$(ProjectDir)/dist/SDL3-3.2.14/lib/x86/SDL3.lib"]

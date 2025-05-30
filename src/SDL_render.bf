@@ -48,7 +48,7 @@ using System;
  * details: https://github.com/libsdl-org/SDL/issues/986
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 public static //extension SDL3
 {

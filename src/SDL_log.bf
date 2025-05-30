@@ -68,7 +68,7 @@ using System;
  * when logging from multiple threads.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * The predefined log categories

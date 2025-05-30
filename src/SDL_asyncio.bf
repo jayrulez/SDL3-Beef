@@ -101,7 +101,7 @@ using System;
  * unnecessary, depending on the app's needs.
  */
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * The asynchronous I/O operation structure.

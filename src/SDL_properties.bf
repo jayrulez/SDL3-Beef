@@ -47,7 +47,7 @@ using System;
  */
 
 
-namespace SDL3Native;
+namespace SDL3;
 
 /**
  * SDL properties ID
