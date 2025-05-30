@@ -76,7 +76,7 @@ public typealias SDL_MouseID = uint32;
  *
  * \since This struct is available since SDL 3.2.0.
  */
-public struct SDL_Cursor;
+[CRepr] public struct SDL_Cursor;
 
 /**
  * Cursor types for SDL_CreateSystemCursor().

@@ -87,7 +87,7 @@ public typealias SDL_CameraID = uint32;
  *
  * \since This struct is available since SDL 3.2.0.
  */
-public struct SDL_Camera;
+[CRepr] public struct SDL_Camera;
 
 /**
  * The details of an output format for a camera device.

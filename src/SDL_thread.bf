@@ -50,7 +50,7 @@ namespace SDL3;
  * \sa SDL_CreateThread
  * \sa SDL_WaitThread
  */
-public struct SDL_Thread;
+[CRepr] public struct SDL_Thread;
 
 /**
  * A unique numeric ID that identifies a thread.

@@ -137,7 +137,7 @@ namespace SDL3;
  * \sa SDL_OpenHapticFromJoystick
  * \sa SDL_CloseHaptic
  */
-public struct SDL_Haptic;
+[CRepr] public struct SDL_Haptic;
 
 public static //extension SDL3
 {
@@ -903,8 +903,7 @@ public static //extension SDL3
  * \sa SDL_HapticLeftRight
  * \sa SDL_HapticCustom
  */
-[CRepr, Union]
-public struct SDL_HapticEffect
+[CRepr, Union] public struct SDL_HapticEffect
 {
 	/* Common for all force feedback effects */
 	public uint16 type; /**< Effect type. */

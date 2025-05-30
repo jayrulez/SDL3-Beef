@@ -39,7 +39,7 @@ namespace SDL3;
  *
  * \since This struct is available since SDL 3.2.0.
  */
-public struct SDL_Sensor;
+[CRepr] public struct SDL_Sensor;
 
 /**
  * This is a unique ID for a sensor for the time it is connected to the

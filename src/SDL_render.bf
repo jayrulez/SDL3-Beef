@@ -104,7 +104,7 @@ public enum SDL_RendererLogicalPresentation : int32
  *
  * \since This struct is available since SDL 3.2.0.
  */
-public struct SDL_Renderer;
+[CRepr] public struct SDL_Renderer;
 
 /**
  * An efficient driver-specific representation of pixel data
@@ -116,7 +116,7 @@ public struct SDL_Renderer;
  * \sa SDL_CreateTextureWithProperties
  * \sa SDL_DestroyTexture
  */
-struct SDL_Texture
+[CRepr] public struct SDL_Texture
 {
 	public SDL_PixelFormat format; /**< The format of the texture, read-only */
 	public int32 w; /**< The width of the texture, read-only. */

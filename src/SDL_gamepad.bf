@@ -79,7 +79,7 @@ namespace SDL3;
  *
  * \since This struct is available since SDL 3.2.0.
  */
-public struct SDL_Gamepad;
+[CRepr] public struct SDL_Gamepad;
 
 /**
  * Standard gamepad types.

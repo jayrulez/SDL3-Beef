@@ -120,7 +120,7 @@ public enum SDL_FlipMode : int32
  * \sa SDL_CreateSurface
  * \sa SDL_DestroySurface
  */
-struct SDL_Surface
+[CRepr]struct SDL_Surface
 {
 	public SDL_SurfaceFlags flags; /**< The flags of the surface, read-only */
 	public SDL_PixelFormat format; /**< The format of the surface, read-only */

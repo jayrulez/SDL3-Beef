@@ -37,21 +37,21 @@ namespace SDL3;
  *
  * \since This struct is available since SDL 3.2.0.
  */
-public struct SDL_Tray;
+[CRepr] public struct SDL_Tray;
 
 /**
  * An opaque handle representing a menu/submenu on a system tray object.
  *
  * \since This struct is available since SDL 3.2.0.
  */
-public struct SDL_TrayMenu;
+[CRepr] public struct SDL_TrayMenu;
 
 /**
  * An opaque handle representing an entry on a system tray object.
  *
  * \since This struct is available since SDL 3.2.0.
  */
-public struct SDL_TrayEntry;
+[CRepr] public struct SDL_TrayEntry;
 
 /**
  * Flags that control the creation of system tray entries.

@@ -521,7 +521,7 @@ public static //extension SDL3
  * \sa SDL_UnsetEnvironmentVariable
  * \sa SDL_DestroyEnvironment
  */
-public struct SDL_Environment;
+[CRepr] public struct SDL_Environment;
 
 public static //extension SDL3
 {
@@ -4631,7 +4631,7 @@ public static //extension SDL3
  *
  * \sa SDL_iconv_open
  */
-public struct SDL_iconv_data_t;
+[CRepr] public struct SDL_iconv_data_t;
 public typealias SDL_iconv_t =  SDL_iconv_data_t*;
 
 public static // extension SDL3

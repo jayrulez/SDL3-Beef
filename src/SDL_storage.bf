@@ -323,7 +323,7 @@ public static //extension SDL3
  *
  * \since This struct is available since SDL 3.2.0.
  */
-public struct SDL_Storage;
+[CRepr] public struct SDL_Storage;
 
 public static //extension SDL3
 {

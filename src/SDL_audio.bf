@@ -477,7 +477,7 @@ public static //extension SDL3
  *
  * \sa SDL_CreateAudioStream
  */
-public struct SDL_AudioStream;
+[CRepr] public struct SDL_AudioStream;
 
 
 public static //extension SDL3

@@ -50,7 +50,7 @@ namespace SDL3;
  *
  * \sa SDL_CreateProcess
  */
-public struct SDL_Process;
+[CRepr] public struct SDL_Process;
 
 public static //extension SDL3
 {

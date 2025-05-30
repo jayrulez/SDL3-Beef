@@ -113,7 +113,7 @@ namespace SDL3;
  *
  * \sa SDL_AsyncIOFromFile
  */
-public struct SDL_AsyncIO;
+[CRepr] public struct SDL_AsyncIO;
 
 /**
  * Types of asynchronous I/O tasks.
@@ -172,7 +172,7 @@ public enum SDL_AsyncIOResult : int32
  * \sa SDL_GetAsyncIOResult
  * \sa SDL_WaitAsyncIOResult
  */
-public struct SDL_AsyncIOQueue;
+[CRepr] public struct SDL_AsyncIOQueue;
 
 public static //extension SDL3
 {

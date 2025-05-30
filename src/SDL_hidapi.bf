@@ -59,7 +59,7 @@ namespace SDL3;
  *
  * \since This struct is available since SDL 3.2.0.
  */
-public struct SDL_hid_device;
+[CRepr] public struct SDL_hid_device;
 
 /**
  * HID underlying bus types.

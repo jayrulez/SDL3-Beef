@@ -312,7 +312,7 @@ namespace SDL3;
  *
  * \since This struct is available since SDL 3.2.0.
  */
-public struct SDL_GPUDevice;
+[CRepr] public struct SDL_GPUDevice;
 
 /**
  * An opaque handle representing a buffer.
@@ -336,7 +336,7 @@ public struct SDL_GPUDevice;
  * \sa SDL_DispatchGPUComputeIndirect
  * \sa SDL_ReleaseGPUBuffer
  */
-public struct SDL_GPUBuffer;
+[CRepr] public struct SDL_GPUBuffer;
 
 /**
  * An opaque handle representing a transfer buffer.
@@ -354,7 +354,7 @@ public struct SDL_GPUBuffer;
  * \sa SDL_DownloadFromGPUTexture
  * \sa SDL_ReleaseGPUTransferBuffer
  */
-public struct SDL_GPUTransferBuffer;
+[CRepr] public struct SDL_GPUTransferBuffer;
 
 /**
  * An opaque handle representing a texture.
@@ -374,7 +374,7 @@ public struct SDL_GPUTransferBuffer;
  * \sa SDL_BlitGPUTexture
  * \sa SDL_ReleaseGPUTexture
  */
-public struct SDL_GPUTexture;
+[CRepr] public struct SDL_GPUTexture;
 
 /**
  * An opaque handle representing a sampler.
@@ -386,7 +386,7 @@ public struct SDL_GPUTexture;
  * \sa SDL_BindGPUFragmentSamplers
  * \sa SDL_ReleaseGPUSampler
  */
-public struct SDL_GPUSampler;
+[CRepr] public struct SDL_GPUSampler;
 
 /**
  * An opaque handle representing a compiled shader object.
@@ -397,7 +397,7 @@ public struct SDL_GPUSampler;
  * \sa SDL_CreateGPUGraphicsPipeline
  * \sa SDL_ReleaseGPUShader
  */
-public struct SDL_GPUShader;
+[CRepr] public struct SDL_GPUShader;
 
 /**
  * An opaque handle representing a compute pipeline.
@@ -410,7 +410,7 @@ public struct SDL_GPUShader;
  * \sa SDL_BindGPUComputePipeline
  * \sa SDL_ReleaseGPUComputePipeline
  */
-public struct SDL_GPUComputePipeline;
+[CRepr] public struct SDL_GPUComputePipeline;
 
 /**
  * An opaque handle representing a graphics pipeline.
@@ -423,7 +423,7 @@ public struct SDL_GPUComputePipeline;
  * \sa SDL_BindGPUGraphicsPipeline
  * \sa SDL_ReleaseGPUGraphicsPipeline
  */
-public struct SDL_GPUGraphicsPipeline;
+[CRepr] public struct SDL_GPUGraphicsPipeline;
 
 /**
  * An opaque handle representing a command buffer.
@@ -448,7 +448,7 @@ public struct SDL_GPUGraphicsPipeline;
  * \sa SDL_SubmitGPUCommandBuffer
  * \sa SDL_SubmitGPUCommandBufferAndAcquireFence
  */
-public struct SDL_GPUCommandBuffer;
+[CRepr] public struct SDL_GPUCommandBuffer;
 
 /**
  * An opaque handle representing a render pass.
@@ -461,7 +461,7 @@ public struct SDL_GPUCommandBuffer;
  * \sa SDL_BeginGPURenderPass
  * \sa SDL_EndGPURenderPass
  */
-public struct SDL_GPURenderPass;
+[CRepr] public struct SDL_GPURenderPass;
 
 /**
  * An opaque handle representing a compute pass.
@@ -474,7 +474,7 @@ public struct SDL_GPURenderPass;
  * \sa SDL_BeginGPUComputePass
  * \sa SDL_EndGPUComputePass
  */
-public struct SDL_GPUComputePass;
+[CRepr] public struct SDL_GPUComputePass;
 
 /**
  * An opaque handle representing a copy pass.
@@ -487,7 +487,7 @@ public struct SDL_GPUComputePass;
  * \sa SDL_BeginGPUCopyPass
  * \sa SDL_EndGPUCopyPass
  */
-public struct SDL_GPUCopyPass;
+[CRepr] public struct SDL_GPUCopyPass;
 
 /**
  * An opaque handle representing a fence.
@@ -499,7 +499,7 @@ public struct SDL_GPUCopyPass;
  * \sa SDL_WaitForGPUFences
  * \sa SDL_ReleaseGPUFence
  */
-public struct SDL_GPUFence;
+[CRepr] public struct SDL_GPUFence;
 
 /**
  * Specifies the primitive topology of a graphics pipeline.

@@ -58,7 +58,7 @@ namespace SDL3;
  *
  * \since This struct is available since SDL 3.2.0.
  */
-public struct SDL_Mutex;
+[CRepr] public struct SDL_Mutex;
 
 public static //extension SDL3
 {
@@ -193,7 +193,7 @@ public static //extension SDL3
 *
 * \since This struct is available since SDL 3.2.0.
 */
-public struct SDL_RWLock;
+[CRepr] public struct SDL_RWLock;
 
 public static //extension SDL3
 {
@@ -426,7 +426,7 @@ public static //extension SDL3
 *
 * \since This struct is available since SDL 3.2.0.
 */
-public struct SDL_Semaphore;
+[CRepr] public struct SDL_Semaphore;
 
 public static //extension SDL3
 {
@@ -571,7 +571,7 @@ public static //extension SDL3
 *
 * \since This struct is available since SDL 3.2.0.
 */
-public struct SDL_Condition;
+[CRepr] public struct SDL_Condition;
 
 public static //extension SDL3
 {

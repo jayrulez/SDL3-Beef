@@ -65,7 +65,7 @@ namespace SDL3;
  * \sa SDL_LoadFunction
  * \sa SDL_UnloadObject
  */
-public struct SDL_SharedObject;
+[CRepr] public struct SDL_SharedObject;
 
 public static //extension SDL3
 {

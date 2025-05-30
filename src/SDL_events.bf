@@ -964,8 +964,7 @@ public enum SDL_EventType : int32
  *
  * \since This struct is available since SDL 3.2.0.
  */
-[CRepr, Union]
-public struct SDL_Event
+[CRepr, Union] public struct SDL_Event
 {
 	public uint32 type; /**< Event type, shared with all events, uint32 to cover user events which are not in the SDL_EventType enumeration */
 	public SDL_CommonEvent common; /**< Common event data */

@@ -60,7 +60,7 @@ namespace SDL3;
  *
  * \since This struct is available since SDL 3.2.0.
  */
-public struct SDL_Joystick;
+[CRepr] public struct SDL_Joystick;
 
 /**
  * This is a unique ID for a joystick for the time it is connected to the

@@ -111,7 +111,7 @@ public enum SDL_SystemTheme : int32
  *
  * \sa SDL_DisplayMode
  */
-public struct SDL_DisplayModeData;
+[CRepr] public struct SDL_DisplayModeData;
 
 /**
  * The structure that defines a display mode.
@@ -160,7 +160,7 @@ public enum SDL_DisplayOrientation : int32
  *
  * \sa SDL_CreateWindow
  */
-public struct SDL_Window;
+[CRepr] public struct SDL_Window;
 
 /**
  * The flags on a window.
@@ -327,7 +327,7 @@ public enum SDL_FlashOperation : int32
  *
  * \sa SDL_GL_CreateContext
  */
-public struct SDL_GLContextState;
+[CRepr] public struct SDL_GLContextState;
 public typealias SDL_GLContext =  SDL_GLContextState*;
 
 /**
