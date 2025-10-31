@@ -224,8 +224,8 @@ using System;
  * - `drawIndirectFirstInstance`
  *
  * **D3D12:** Supported on Windows 10 or newer, Xbox One (GDK), and Xbox
- * Series X|S (GDK). Requires a GPU that supports DirectX 12 Feature Level
- * 11_1.
+ * Series X|S (GDK). Requires a GPU that supports DirectX 12 Feature Level 11_0 and
+ * Resource Binding Tier 2 or above.
  *
  * **Metal:** Supported on macOS 10.14+ and iOS/tvOS 13.0+. Hardware
  * requirements vary by operating system:
@@ -1081,7 +1081,7 @@ public enum SDL_GPUCompareOp : int32
 	SDL_GPU_COMPAREOP_LESS_OR_EQUAL, /**< The comparison evaluates reference <= test. */
 	SDL_GPU_COMPAREOP_GREATER, /**< The comparison evaluates reference > test. */
 	SDL_GPU_COMPAREOP_NOT_EQUAL, /**< The comparison evaluates reference != test. */
-	SDL_GPU_COMPAREOP_GREATER_OR_EQUAL, /**< The comparison evalutes reference >= test. */
+	SDL_GPU_COMPAREOP_GREATER_OR_EQUAL, /**< The comparison evaluates reference >= test. */
 	SDL_GPU_COMPAREOP_ALWAYS /**< The comparison always evaluates true. */
 }
 
@@ -1540,7 +1540,7 @@ public enum SDL_GPUSwapchainComposition : int32
 [CRepr] public struct SDL_GPUVertexBufferDescription
 {
 	public uint32 slot; /**< The binding slot of the vertex buffer. */
-	public uint32 pitch; /**< The byte pitch between consecutive elements of the vertex buffer. */
+	public uint32 pitch; /**< The size of a single element + the offset between elements. */
 	public SDL_GPUVertexInputRate input_rate; /**< Whether attribute addressing is a function of the vertex index or instance index. */
 	public uint32 instance_step_rate; /**< Reserved for future use. Must be set to 0. */
 }
@@ -2642,7 +2642,7 @@ public static //extension SDL3
 		char8* text);
 
 	/**
-	 * Begins a debug group with an arbitary name.
+	 * Begins a debug group with an arbitrary name.
 	 *
 	 * Used for denoting groups of calls when viewing the command buffer
 	 * callstream in a graphics debugging tool.

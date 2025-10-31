@@ -107,7 +107,7 @@ public typealias SDL_CameraID = uint32;
 	public int32 width; /**< Frame width */
 	public int32 height; /**< Frame height */
 	public int32 framerate_numerator; /**< Frame rate numerator ((num / denom) == FPS, (denom / num) == duration in seconds) */
-	public int32 framerate_denominator; /**< Frame rate demoninator ((num / denom) == FPS, (denom / num) == duration in seconds) */
+	public int32 framerate_denominator; /**< Frame rate denominator ((num / denom) == FPS, (denom / num) == duration in seconds) */
 }
 
 /**
