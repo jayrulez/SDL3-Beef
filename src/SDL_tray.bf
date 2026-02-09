@@ -76,456 +76,456 @@ public enum SDL_TrayEntryFlags : uint32
 }
 
 /**
-* A callback that is invoked when a tray entry is selected.
-*
-* \param userdata an optional pointer to pass extra data to the callback when
-*                 it will be invoked.
-* \param entry the tray entry that was selected.
-*
-* \since This datatype is available since SDL 3.2.0.
-*
-* \sa SDL_SetTrayEntryCallback
-*/
+ * A callback that is invoked when a tray entry is selected.
+ *
+ * \param userdata an optional pointer to pass extra data to the callback when
+ *                 it will be invoked.
+ * \param entry the tray entry that was selected.
+ *
+ * \since This datatype is available since SDL 3.2.0.
+ *
+ * \sa SDL_SetTrayEntryCallback
+ */
 public typealias SDL_TrayCallback = function void(void* userdata, SDL_TrayEntry* entry);
 
 public static //extension SDL3
 {
-   /**
-	* Create an icon to be placed in the operating system's tray, or equivalent.
-	*
-	* Many platforms advise not using a system tray unless persistence is a
-	* necessary feature. Avoid needlessly creating a tray icon, as the user may
-	* feel like it clutters their interface.
-	*
-	* Using tray icons require the video subsystem.
-	*
-	* \param icon a surface to be used as icon. May be NULL.
-	* \param tooltip a tooltip to be displayed when the mouse hovers the icon in
-	*                UTF-8 encoding. Not supported on all platforms. May be NULL.
-	* \returns The newly created system tray icon.
-	*
-	* \threadsafety This function should only be called on the main thread.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_CreateTrayMenu
-	* \sa SDL_GetTrayMenu
-	* \sa SDL_DestroyTray
-	*/
+/**
+ * Create an icon to be placed in the operating system's tray, or equivalent.
+ *
+ * Many platforms advise not using a system tray unless persistence is a
+ * necessary feature. Avoid needlessly creating a tray icon, as the user may
+ * feel like it clutters their interface.
+ *
+ * Using tray icons require the video subsystem.
+ *
+ * \param icon a surface to be used as icon. May be NULL.
+ * \param tooltip a tooltip to be displayed when the mouse hovers the icon in
+ *                UTF-8 encoding. Not supported on all platforms. May be NULL.
+ * \returns The newly created system tray icon.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CreateTrayMenu
+ * \sa SDL_GetTrayMenu
+ * \sa SDL_DestroyTray
+ */
 	[CLink] public static extern SDL_Tray* SDL_CreateTray(SDL_Surface* icon, char8* tooltip);
 
-   /**
-	* Updates the system tray icon's icon.
-	*
-	* \param tray the tray icon to be updated.
-	* \param icon the new icon. May be NULL.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_CreateTray
-	*/
+/**
+ * Updates the system tray icon's icon.
+ *
+ * \param tray the tray icon to be updated.
+ * \param icon the new icon. May be NULL.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CreateTray
+ */
 	[CLink] public static extern void SDL_SetTrayIcon(SDL_Tray* tray, SDL_Surface* icon);
 
-   /**
-	* Updates the system tray icon's tooltip.
-	*
-	* \param tray the tray icon to be updated.
-	* \param tooltip the new tooltip in UTF-8 encoding. May be NULL.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_CreateTray
-	*/
+/**
+ * Updates the system tray icon's tooltip.
+ *
+ * \param tray the tray icon to be updated.
+ * \param tooltip the new tooltip in UTF-8 encoding. May be NULL.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CreateTray
+ */
 	[CLink] public static extern void SDL_SetTrayTooltip(SDL_Tray* tray, char8* tooltip);
 
-   /**
-	* Create a menu for a system tray.
-	*
-	* This should be called at most once per tray icon.
-	*
-	* This function does the same thing as SDL_CreateTraySubmenu(), except that
-	* it takes a SDL_Tray instead of a SDL_TrayEntry.
-	*
-	* A menu does not need to be destroyed; it will be destroyed with the tray.
-	*
-	* \param tray the tray to bind the menu to.
-	* \returns the newly created menu.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_CreateTray
-	* \sa SDL_GetTrayMenu
-	* \sa SDL_GetTrayMenuParentTray
-	*/
+/**
+ * Create a menu for a system tray.
+ *
+ * This should be called at most once per tray icon.
+ *
+ * This function does the same thing as SDL_CreateTraySubmenu(), except that
+ * it takes a SDL_Tray instead of a SDL_TrayEntry.
+ *
+ * A menu does not need to be destroyed; it will be destroyed with the tray.
+ *
+ * \param tray the tray to bind the menu to.
+ * \returns the newly created menu.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CreateTray
+ * \sa SDL_GetTrayMenu
+ * \sa SDL_GetTrayMenuParentTray
+ */
 	[CLink] public static extern SDL_TrayMenu* SDL_CreateTrayMenu(SDL_Tray* tray);
 
-   /**
-	* Create a submenu for a system tray entry.
-	*
-	* This should be called at most once per tray entry.
-	*
-	* This function does the same thing as SDL_CreateTrayMenu, except that it
-	* takes a SDL_TrayEntry instead of a SDL_Tray.
-	*
-	* A menu does not need to be destroyed; it will be destroyed with the tray.
-	*
-	* \param entry the tray entry to bind the menu to.
-	* \returns the newly created menu.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_InsertTrayEntryAt
-	* \sa SDL_GetTraySubmenu
-	* \sa SDL_GetTrayMenuParentEntry
-	*/
+/**
+ * Create a submenu for a system tray entry.
+ *
+ * This should be called at most once per tray entry.
+ *
+ * This function does the same thing as SDL_CreateTrayMenu, except that it
+ * takes a SDL_TrayEntry instead of a SDL_Tray.
+ *
+ * A menu does not need to be destroyed; it will be destroyed with the tray.
+ *
+ * \param entry the tray entry to bind the menu to.
+ * \returns the newly created menu.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_InsertTrayEntryAt
+ * \sa SDL_GetTraySubmenu
+ * \sa SDL_GetTrayMenuParentEntry
+ */
 	[CLink] public static extern SDL_TrayMenu* SDL_CreateTraySubmenu(SDL_TrayEntry* entry);
 
-   /**
-	* Gets a previously created tray menu.
-	*
-	* You should have called SDL_CreateTrayMenu() on the tray object. This
-	* function allows you to fetch it again later.
-	*
-	* This function does the same thing as SDL_GetTraySubmenu(), except that it
-	* takes a SDL_Tray instead of a SDL_TrayEntry.
-	*
-	* A menu does not need to be destroyed; it will be destroyed with the tray.
-	*
-	* \param tray the tray entry to bind the menu to.
-	* \returns the newly created menu.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_CreateTray
-	* \sa SDL_CreateTrayMenu
-	*/
+/**
+ * Gets a previously created tray menu.
+ *
+ * You should have called SDL_CreateTrayMenu() on the tray object. This
+ * function allows you to fetch it again later.
+ *
+ * This function does the same thing as SDL_GetTraySubmenu(), except that it
+ * takes a SDL_Tray instead of a SDL_TrayEntry.
+ *
+ * A menu does not need to be destroyed; it will be destroyed with the tray.
+ *
+ * \param tray the tray entry to bind the menu to.
+ * \returns the newly created menu.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CreateTray
+ * \sa SDL_CreateTrayMenu
+ */
 	[CLink] public static extern SDL_TrayMenu* SDL_GetTrayMenu(SDL_Tray* tray);
 
-   /**
-	* Gets a previously created tray entry submenu.
-	*
-	* You should have called SDL_CreateTraySubmenu() on the entry object. This
-	* function allows you to fetch it again later.
-	*
-	* This function does the same thing as SDL_GetTrayMenu(), except that it
-	* takes a SDL_TrayEntry instead of a SDL_Tray.
-	*
-	* A menu does not need to be destroyed; it will be destroyed with the tray.
-	*
-	* \param entry the tray entry to bind the menu to.
-	* \returns the newly created menu.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_InsertTrayEntryAt
-	* \sa SDL_CreateTraySubmenu
-	*/
+/**
+ * Gets a previously created tray entry submenu.
+ *
+ * You should have called SDL_CreateTraySubmenu() on the entry object. This
+ * function allows you to fetch it again later.
+ *
+ * This function does the same thing as SDL_GetTrayMenu(), except that it
+ * takes a SDL_TrayEntry instead of a SDL_Tray.
+ *
+ * A menu does not need to be destroyed; it will be destroyed with the tray.
+ *
+ * \param entry the tray entry to bind the menu to.
+ * \returns the newly created menu.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_InsertTrayEntryAt
+ * \sa SDL_CreateTraySubmenu
+ */
 	[CLink] public static extern SDL_TrayMenu* SDL_GetTraySubmenu(SDL_TrayEntry* entry);
 
-   /**
-	* Returns a list of entries in the menu, in order.
-	*
-	* \param menu The menu to get entries from.
-	* \param count An optional pointer to obtain the number of entries in the
-	*              menu.
-	* \returns a NULL-terminated list of entries within the given menu. The
-	*          pointer becomes invalid when any function that inserts or deletes
-	*          entries in the menu is called.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_RemoveTrayEntry
-	* \sa SDL_InsertTrayEntryAt
-	*/
+/**
+ * Returns a list of entries in the menu, in order.
+ *
+ * \param menu The menu to get entries from.
+ * \param count An optional pointer to obtain the number of entries in the
+ *              menu.
+ * \returns a NULL-terminated list of entries within the given menu. The
+ *          pointer becomes invalid when any function that inserts or deletes
+ *          entries in the menu is called.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_RemoveTrayEntry
+ * \sa SDL_InsertTrayEntryAt
+ */
 	[CLink] public static extern SDL_TrayEntry** SDL_GetTrayEntries(SDL_TrayMenu* menu, int32* count);
 
-   /**
-	* Removes a tray entry.
-	*
-	* \param entry The entry to be deleted.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetTrayEntries
-	* \sa SDL_InsertTrayEntryAt
-	*/
+/**
+ * Removes a tray entry.
+ *
+ * \param entry The entry to be deleted.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetTrayEntries
+ * \sa SDL_InsertTrayEntryAt
+ */
 	[CLink] public static extern void SDL_RemoveTrayEntry(SDL_TrayEntry* entry);
 
-   /**
-	* Insert a tray entry at a given position.
-	*
-	* If label is NULL, the entry will be a separator. Many functions won't work
-	* for an entry that is a separator.
-	*
-	* An entry does not need to be destroyed; it will be destroyed with the tray.
-	*
-	* \param menu the menu to append the entry to.
-	* \param pos the desired position for the new entry. Entries at or following
-	*            this place will be moved. If pos is -1, the entry is appended.
-	* \param label the text to be displayed on the entry, in UTF-8 encoding, or
-	*              NULL for a separator.
-	* \param flags a combination of flags, some of which are mandatory.
-	* \returns the newly created entry, or NULL if pos is out of bounds.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_TrayEntryFlags
-	* \sa SDL_GetTrayEntries
-	* \sa SDL_RemoveTrayEntry
-	* \sa SDL_GetTrayEntryParent
-	*/
+/**
+ * Insert a tray entry at a given position.
+ *
+ * If label is NULL, the entry will be a separator. Many functions won't work
+ * for an entry that is a separator.
+ *
+ * An entry does not need to be destroyed; it will be destroyed with the tray.
+ *
+ * \param menu the menu to append the entry to.
+ * \param pos the desired position for the new entry. Entries at or following
+ *            this place will be moved. If pos is -1, the entry is appended.
+ * \param label the text to be displayed on the entry, in UTF-8 encoding, or
+ *              NULL for a separator.
+ * \param flags a combination of flags, some of which are mandatory.
+ * \returns the newly created entry, or NULL if pos is out of bounds.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_TrayEntryFlags
+ * \sa SDL_GetTrayEntries
+ * \sa SDL_RemoveTrayEntry
+ * \sa SDL_GetTrayEntryParent
+ */
 	[CLink] public static extern SDL_TrayEntry* SDL_InsertTrayEntryAt(SDL_TrayMenu* menu, int32 pos, char8* label, SDL_TrayEntryFlags flags);
 
-   /**
-	* Sets the label of an entry.
-	*
-	* An entry cannot change between a separator and an ordinary entry; that is,
-	* it is not possible to set a non-NULL label on an entry that has a NULL
-	* label (separators), or to set a NULL label to an entry that has a non-NULL
-	* label. The function will silently fail if that happens.
-	*
-	* \param entry the entry to be updated.
-	* \param label the new label for the entry in UTF-8 encoding.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetTrayEntries
-	* \sa SDL_InsertTrayEntryAt
-	* \sa SDL_GetTrayEntryLabel
-	*/
+/**
+ * Sets the label of an entry.
+ *
+ * An entry cannot change between a separator and an ordinary entry; that is,
+ * it is not possible to set a non-NULL label on an entry that has a NULL
+ * label (separators), or to set a NULL label to an entry that has a non-NULL
+ * label. The function will silently fail if that happens.
+ *
+ * \param entry the entry to be updated.
+ * \param label the new label for the entry in UTF-8 encoding.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetTrayEntries
+ * \sa SDL_InsertTrayEntryAt
+ * \sa SDL_GetTrayEntryLabel
+ */
 	[CLink] public static extern void SDL_SetTrayEntryLabel(SDL_TrayEntry* entry, char8* label);
 
-   /**
-	* Gets the label of an entry.
-	*
-	* If the returned value is NULL, the entry is a separator.
-	*
-	* \param entry the entry to be read.
-	* \returns the label of the entry in UTF-8 encoding.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetTrayEntries
-	* \sa SDL_InsertTrayEntryAt
-	* \sa SDL_SetTrayEntryLabel
-	*/
-	[CLink] public static extern char8*  SDL_GetTrayEntryLabel(SDL_TrayEntry* entry);
+/**
+ * Gets the label of an entry.
+ *
+ * If the returned value is NULL, the entry is a separator.
+ *
+ * \param entry the entry to be read.
+ * \returns the label of the entry in UTF-8 encoding.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetTrayEntries
+ * \sa SDL_InsertTrayEntryAt
+ * \sa SDL_SetTrayEntryLabel
+ */
+	[CLink] public static extern char8* SDL_GetTrayEntryLabel(SDL_TrayEntry* entry);
 
-   /**
-	* Sets whether or not an entry is checked.
-	*
-	* The entry must have been created with the SDL_TRAYENTRY_CHECKBOX flag.
-	*
-	* \param entry the entry to be updated.
-	* \param checked true if the entry should be checked; false otherwise.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetTrayEntries
-	* \sa SDL_InsertTrayEntryAt
-	* \sa SDL_GetTrayEntryChecked
-	*/
+/**
+ * Sets whether or not an entry is checked.
+ *
+ * The entry must have been created with the SDL_TRAYENTRY_CHECKBOX flag.
+ *
+ * \param entry the entry to be updated.
+ * \param checked true if the entry should be checked; false otherwise.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetTrayEntries
+ * \sa SDL_InsertTrayEntryAt
+ * \sa SDL_GetTrayEntryChecked
+ */
 	[CLink] public static extern void SDL_SetTrayEntryChecked(SDL_TrayEntry* entry, bool @checked);
 
-   /**
-	* Gets whether or not an entry is checked.
-	*
-	* The entry must have been created with the SDL_TRAYENTRY_CHECKBOX flag.
-	*
-	* \param entry the entry to be read.
-	* \returns true if the entry is checked; false otherwise.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetTrayEntries
-	* \sa SDL_InsertTrayEntryAt
-	* \sa SDL_SetTrayEntryChecked
-	*/
+/**
+ * Gets whether or not an entry is checked.
+ *
+ * The entry must have been created with the SDL_TRAYENTRY_CHECKBOX flag.
+ *
+ * \param entry the entry to be read.
+ * \returns true if the entry is checked; false otherwise.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetTrayEntries
+ * \sa SDL_InsertTrayEntryAt
+ * \sa SDL_SetTrayEntryChecked
+ */
 	[CLink] public static extern bool SDL_GetTrayEntryChecked(SDL_TrayEntry* entry);
 
-   /**
-	* Sets whether or not an entry is enabled.
-	*
-	* \param entry the entry to be updated.
-	* \param enabled true if the entry should be enabled; false otherwise.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetTrayEntries
-	* \sa SDL_InsertTrayEntryAt
-	* \sa SDL_GetTrayEntryEnabled
-	*/
+/**
+ * Sets whether or not an entry is enabled.
+ *
+ * \param entry the entry to be updated.
+ * \param enabled true if the entry should be enabled; false otherwise.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetTrayEntries
+ * \sa SDL_InsertTrayEntryAt
+ * \sa SDL_GetTrayEntryEnabled
+ */
 	[CLink] public static extern void SDL_SetTrayEntryEnabled(SDL_TrayEntry* entry, bool enabled);
 
-   /**
-	* Gets whether or not an entry is enabled.
-	*
-	* \param entry the entry to be read.
-	* \returns true if the entry is enabled; false otherwise.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetTrayEntries
-	* \sa SDL_InsertTrayEntryAt
-	* \sa SDL_SetTrayEntryEnabled
-	*/
+/**
+ * Gets whether or not an entry is enabled.
+ *
+ * \param entry the entry to be read.
+ * \returns true if the entry is enabled; false otherwise.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetTrayEntries
+ * \sa SDL_InsertTrayEntryAt
+ * \sa SDL_SetTrayEntryEnabled
+ */
 	[CLink] public static extern bool SDL_GetTrayEntryEnabled(SDL_TrayEntry* entry);
 
-   /**
-	* Sets a callback to be invoked when the entry is selected.
-	*
-	* \param entry the entry to be updated.
-	* \param callback a callback to be invoked when the entry is selected.
-	* \param userdata an optional pointer to pass extra data to the callback when
-	*                 it will be invoked.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetTrayEntries
-	* \sa SDL_InsertTrayEntryAt
-	*/
+/**
+ * Sets a callback to be invoked when the entry is selected.
+ *
+ * \param entry the entry to be updated.
+ * \param callback a callback to be invoked when the entry is selected.
+ * \param userdata an optional pointer to pass extra data to the callback when
+ *                 it will be invoked.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetTrayEntries
+ * \sa SDL_InsertTrayEntryAt
+ */
 	[CLink] public static extern void SDL_SetTrayEntryCallback(SDL_TrayEntry* entry, SDL_TrayCallback callback, void* userdata);
 
-   /**
-	* Simulate a click on a tray entry.
-	*
-	* \param entry The entry to activate.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*/
+/**
+ * Simulate a click on a tray entry.
+ *
+ * \param entry The entry to activate.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ */
 	[CLink] public static extern void SDL_ClickTrayEntry(SDL_TrayEntry* entry);
 
-   /**
-	* Destroys a tray object.
-	*
-	* This also destroys all associated menus and entries.
-	*
-	* \param tray the tray icon to be destroyed.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_CreateTray
-	*/
+/**
+ * Destroys a tray object.
+ *
+ * This also destroys all associated menus and entries.
+ *
+ * \param tray the tray icon to be destroyed.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CreateTray
+ */
 	[CLink] public static extern void SDL_DestroyTray(SDL_Tray* tray);
 
-   /**
-	* Gets the menu containing a certain tray entry.
-	*
-	* \param entry the entry for which to get the parent menu.
-	* \returns the parent menu.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_InsertTrayEntryAt
-	*/
+/**
+ * Gets the menu containing a certain tray entry.
+ *
+ * \param entry the entry for which to get the parent menu.
+ * \returns the parent menu.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_InsertTrayEntryAt
+ */
 	[CLink] public static extern SDL_TrayMenu* SDL_GetTrayEntryParent(SDL_TrayEntry* entry);
 
-   /**
-	* Gets the entry for which the menu is a submenu, if the current menu is a
-	* submenu.
-	*
-	* Either this function or SDL_GetTrayMenuParentTray() will return non-NULL
-	* for any given menu.
-	*
-	* \param menu the menu for which to get the parent entry.
-	* \returns the parent entry, or NULL if this menu is not a submenu.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_CreateTraySubmenu
-	* \sa SDL_GetTrayMenuParentTray
-	*/
+/**
+ * Gets the entry for which the menu is a submenu, if the current menu is a
+ * submenu.
+ *
+ * Either this function or SDL_GetTrayMenuParentTray() will return non-NULL
+ * for any given menu.
+ *
+ * \param menu the menu for which to get the parent entry.
+ * \returns the parent entry, or NULL if this menu is not a submenu.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CreateTraySubmenu
+ * \sa SDL_GetTrayMenuParentTray
+ */
 	[CLink] public static extern SDL_TrayEntry* SDL_GetTrayMenuParentEntry(SDL_TrayMenu* menu);
 
-   /**
-	* Gets the tray for which this menu is the first-level menu, if the current
-	* menu isn't a submenu.
-	*
-	* Either this function or SDL_GetTrayMenuParentEntry() will return non-NULL
-	* for any given menu.
-	*
-	* \param menu the menu for which to get the parent enttrayry.
-	* \returns the parent tray, or NULL if this menu is a submenu.
-	*
-	* \threadsafety This function should be called on the thread that created the
-	*               tray.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_CreateTrayMenu
-	* \sa SDL_GetTrayMenuParentEntry
-	*/
+/**
+ * Gets the tray for which this menu is the first-level menu, if the current
+ * menu isn't a submenu.
+ *
+ * Either this function or SDL_GetTrayMenuParentEntry() will return non-NULL
+ * for any given menu.
+ *
+ * \param menu the menu for which to get the parent enttrayry.
+ * \returns the parent tray, or NULL if this menu is a submenu.
+ *
+ * \threadsafety This function should be called on the thread that created the
+ *               tray.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CreateTrayMenu
+ * \sa SDL_GetTrayMenuParentEntry
+ */
 	[CLink] public static extern SDL_Tray* SDL_GetTrayMenuParentTray(SDL_TrayMenu* menu);
 
-   /**
-	* Update the trays.
-	*
-	* This is called automatically by the event loop and is only needed if you're
-	* using trays but aren't handling SDL events.
-	*
-	* \threadsafety This function should only be called on the main thread.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*/
+/**
+ * Update the trays.
+ *
+ * This is called automatically by the event loop and is only needed if you're
+ * using trays but aren't handling SDL events.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ */
 	[CLink] public static extern void SDL_UpdateTrays();
 }

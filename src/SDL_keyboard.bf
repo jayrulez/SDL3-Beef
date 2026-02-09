@@ -48,336 +48,335 @@ public typealias SDL_KeyboardID = uint32;
 public static //extension SDL3
 {
 
-	/* Function prototypes */
-	
-	/**
-	* Return whether a keyboard is currently connected.
-	*
-	* \returns true if a keyboard is connected, false otherwise.
-	*
-	* \threadsafety This function should only be called on the main thread.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetKeyboards
-	*/
+/* Function prototypes */
+
+/**
+ * Return whether a keyboard is currently connected.
+ *
+ * \returns true if a keyboard is connected, false otherwise.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetKeyboards
+ */
 	[CLink] public static extern bool SDL_HasKeyboard();
 
-	/**
-	* Get a list of currently connected keyboards.
-	*
-	* Note that this will include any device or virtual driver that includes
-	* keyboard functionality, including some mice, KVM switches, motherboard
-	* power buttons, etc. You should wait for input from a device before you
-	* consider it actively in use.
-	*
-	* \param count a pointer filled in with the number of keyboards returned, may
-	*              be NULL.
-	* \returns a 0 terminated array of keyboards instance IDs or NULL on failure;
-	*          call SDL_GetError() for more information. This should be freed
-	*          with SDL_free() when it is no longer needed.
-	*
-	* \threadsafety This function should only be called on the main thread.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetKeyboardNameForID
-	* \sa SDL_HasKeyboard
-	*/
+/**
+ * Get a list of currently connected keyboards.
+ *
+ * Note that this will include any device or virtual driver that includes
+ * keyboard functionality, including some mice, KVM switches, motherboard
+ * power buttons, etc. You should wait for input from a device before you
+ * consider it actively in use.
+ *
+ * \param count a pointer filled in with the number of keyboards returned, may
+ *              be NULL.
+ * \returns a 0 terminated array of keyboards instance IDs or NULL on failure;
+ *          call SDL_GetError() for more information. This should be freed
+ *          with SDL_free() when it is no longer needed.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetKeyboardNameForID
+ * \sa SDL_HasKeyboard
+ */
 	[CLink] public static extern SDL_KeyboardID* SDL_GetKeyboards(int32* count);
 
-	/**
-	* Get the name of a keyboard.
-	*
-	* This function returns "" if the keyboard doesn't have a name.
-	*
-	* \param instance_id the keyboard instance ID.
-	* \returns the name of the selected keyboard or NULL on failure; call
-	*          SDL_GetError() for more information.
-	*
-	* \threadsafety This function should only be called on the main thread.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetKeyboards
-	*/
-	[CLink] public static extern char8*  SDL_GetKeyboardNameForID(SDL_KeyboardID instance_id);
+/**
+ * Get the name of a keyboard.
+ *
+ * This function returns "" if the keyboard doesn't have a name.
+ *
+ * \param instance_id the keyboard instance ID.
+ * \returns the name of the selected keyboard or NULL on failure; call
+ *          SDL_GetError() for more information.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetKeyboards
+ */
+	[CLink] public static extern char8* SDL_GetKeyboardNameForID(SDL_KeyboardID instance_id);
 
-	/**
-	* Query the window which currently has keyboard focus.
-	*
-	* \returns the window with keyboard focus.
-	*
-	* \threadsafety This function should only be called on the main thread.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*/
+/**
+ * Query the window which currently has keyboard focus.
+ *
+ * \returns the window with keyboard focus.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ */
 	[CLink] public static extern SDL_Window* SDL_GetKeyboardFocus();
 
-	/**
-	* Get a snapshot of the current state of the keyboard.
-	*
-	* The pointer returned is a pointer to an internal SDL array. It will be
-	* valid for the whole lifetime of the application and should not be freed by
-	* the caller.
-	*
-	* A array element with a value of true means that the key is pressed and a
-	* value of false means that it is not. Indexes into this array are obtained
-	* by using SDL_Scancode values.
-	*
-	* Use SDL_PumpEvents() to update the state array.
-	*
-	* This function gives you the current state after all events have been
-	* processed, so if a key or button has been pressed and released before you
-	* process events, then the pressed state will never show up in the
-	* SDL_GetKeyboardState() calls.
-	*
-	* Note: This function doesn't take into account whether shift has been
-	* pressed or not.
-	*
-	* \param numkeys if non-NULL, receives the length of the returned array.
-	* \returns a pointer to an array of key states.
-	*
-	* \threadsafety It is safe to call this function from any thread.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_PumpEvents
-	* \sa SDL_ResetKeyboard
-	*/
+/**
+ * Get a snapshot of the current state of the keyboard.
+ *
+ * The pointer returned is a pointer to an internal SDL array. It will be
+ * valid for the whole lifetime of the application and should not be freed by
+ * the caller.
+ *
+ * A array element with a value of true means that the key is pressed and a
+ * value of false means that it is not. Indexes into this array are obtained
+ * by using SDL_Scancode values.
+ *
+ * Use SDL_PumpEvents() to update the state array.
+ *
+ * This function gives you the current state after all events have been
+ * processed, so if a key or button has been pressed and released before you
+ * process events, then the pressed state will never show up in the
+ * SDL_GetKeyboardState() calls.
+ *
+ * Note: This function doesn't take into account whether shift has been
+ * pressed or not.
+ *
+ * \param numkeys if non-NULL, receives the length of the returned array.
+ * \returns a pointer to an array of key states.
+ *
+ * \threadsafety It is safe to call this function from any thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_PumpEvents
+ * \sa SDL_ResetKeyboard
+ */
 	[CLink] public static extern bool* SDL_GetKeyboardState(int32* numkeys);
 
-	/**
-	* Clear the state of the keyboard.
-	*
-	* This function will generate key up events for all pressed keys.
-	*
-	* \threadsafety This function should only be called on the main thread.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetKeyboardState
-	*/
+/**
+ * Clear the state of the keyboard.
+ *
+ * This function will generate key up events for all pressed keys.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetKeyboardState
+ */
 	[CLink] public static extern void SDL_ResetKeyboard();
 
-	/**
-	* Get the current key modifier state for the keyboard.
-	*
-	* \returns an OR'd combination of the modifier keys for the keyboard. See
-	*          SDL_Keymod for details.
-	*
-	* \threadsafety It is safe to call this function from any thread.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetKeyboardState
-	* \sa SDL_SetModState
-	*/
+/**
+ * Get the current key modifier state for the keyboard.
+ *
+ * \returns an OR'd combination of the modifier keys for the keyboard.
+ *
+ * \threadsafety It is safe to call this function from any thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetKeyboardState
+ * \sa SDL_SetModState
+ */
 	[CLink] public static extern SDL_Keymod SDL_GetModState();
 
-	/**
-	* Set the current key modifier state for the keyboard.
-	*
-	* The inverse of SDL_GetModState(), SDL_SetModState() allows you to impose
-	* modifier key states on your application. Simply pass your desired modifier
-	* states into `modstate`. This value may be a bitwise, OR'd combination of
-	* SDL_Keymod values.
-	*
-	* This does not change the keyboard state, only the key modifier flags that
-	* SDL reports.
-	*
-	* \param modstate the desired SDL_Keymod for the keyboard.
-	*
-	* \threadsafety It is safe to call this function from any thread.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetModState
-	*/
+/**
+ * Set the current key modifier state for the keyboard.
+ *
+ * The inverse of SDL_GetModState(), SDL_SetModState() allows you to impose
+ * modifier key states on your application. Simply pass your desired modifier
+ * states into `modstate`. This value may be a bitwise, OR'd combination of
+ * SDL_Keymod values.
+ *
+ * This does not change the keyboard state, only the key modifier flags that
+ * SDL reports.
+ *
+ * \param modstate the desired SDL_Keymod for the keyboard.
+ *
+ * \threadsafety It is safe to call this function from any thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetModState
+ */
 	[CLink] public static extern void SDL_SetModState(SDL_Keymod modstate);
 
-	/**
-	* Get the key code corresponding to the given scancode according to the
-	* current keyboard layout.
-	*
-	* If you want to get the keycode as it would be delivered in key events,
-	* including options specified in SDL_HINT_KEYCODE_OPTIONS, then you should
-	* pass `key_event` as true. Otherwise this function simply translates the
-	* scancode based on the given modifier state.
-	*
-	* \param scancode the desired SDL_Scancode to query.
-	* \param modstate the modifier state to use when translating the scancode to
-	*                 a keycode.
-	* \param key_event true if the keycode will be used in key events.
-	* \returns the SDL_Keycode that corresponds to the given SDL_Scancode.
-	*
-	* \threadsafety This function is not thread safe.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetKeyName
-	* \sa SDL_GetScancodeFromKey
-	*/
+/**
+ * Get the key code corresponding to the given scancode according to the
+ * current keyboard layout.
+ *
+ * If you want to get the keycode as it would be delivered in key events,
+ * including options specified in SDL_HINT_KEYCODE_OPTIONS, then you should
+ * pass `key_event` as true. Otherwise this function simply translates the
+ * scancode based on the given modifier state.
+ *
+ * \param scancode the desired SDL_Scancode to query.
+ * \param modstate the modifier state to use when translating the scancode to
+ *                 a keycode.
+ * \param key_event true if the keycode will be used in key events.
+ * \returns the SDL_Keycode that corresponds to the given SDL_Scancode.
+ *
+ * \threadsafety This function is not thread safe.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetKeyName
+ * \sa SDL_GetScancodeFromKey
+ */
 	[CLink] public static extern SDL_Keycode SDL_GetKeyFromScancode(SDL_Scancode scancode, SDL_Keymod modstate, bool key_event);
 
-	/**
-	* Get the scancode corresponding to the given key code according to the
-	* current keyboard layout.
-	*
-	* Note that there may be multiple scancode+modifier states that can generate
-	* this keycode, this will just return the first one found.
-	*
-	* \param key the desired SDL_Keycode to query.
-	* \param modstate a pointer to the modifier state that would be used when the
-	*                 scancode generates this key, may be NULL.
-	* \returns the SDL_Scancode that corresponds to the given SDL_Keycode.
-	*
-	* \threadsafety This function is not thread safe.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetKeyFromScancode
-	* \sa SDL_GetScancodeName
-	*/
+/**
+ * Get the scancode corresponding to the given key code according to the
+ * current keyboard layout.
+ *
+ * Note that there may be multiple scancode+modifier states that can generate
+ * this keycode, this will just return the first one found.
+ *
+ * \param key the desired SDL_Keycode to query.
+ * \param modstate a pointer to the modifier state that would be used when the
+ *                 scancode generates this key, may be NULL.
+ * \returns the SDL_Scancode that corresponds to the given SDL_Keycode.
+ *
+ * \threadsafety This function is not thread safe.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetKeyFromScancode
+ * \sa SDL_GetScancodeName
+ */
 	[CLink] public static extern SDL_Scancode SDL_GetScancodeFromKey(SDL_Keycode key, SDL_Keymod* modstate);
 
-	/**
-	* Set a human-readable name for a scancode.
-	*
-	* \param scancode the desired SDL_Scancode.
-	* \param name the name to use for the scancode, encoded as UTF-8. The string
-	*             is not copied, so the pointer given to this function must stay
-	*             valid while SDL is being used.
-	* \returns true on success or false on failure; call SDL_GetError() for more
-	*          information.
-	*
-	* \threadsafety This function is not thread safe.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetScancodeName
-	*/
+/**
+ * Set a human-readable name for a scancode.
+ *
+ * \param scancode the desired SDL_Scancode.
+ * \param name the name to use for the scancode, encoded as UTF-8. The string
+ *             is not copied, so the pointer given to this function must stay
+ *             valid while SDL is being used.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \threadsafety This function is not thread safe.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetScancodeName
+ */
 	[CLink] public static extern bool SDL_SetScancodeName(SDL_Scancode scancode, char8* name);
 
-	/**
-	* Get a human-readable name for a scancode.
-	*
-	* **Warning**: The returned name is by design not stable across platforms,
-	* e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left
-	* Windows" under Microsoft Windows, and some scancodes like
-	* `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even
-	* scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and
-	* `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore
-	* unsuitable for creating a stable cross-platform two-way mapping between
-	* strings and scancodes.
-	*
-	* \param scancode the desired SDL_Scancode to query.
-	* \returns a pointer to the name for the scancode. If the scancode doesn't
-	*          have a name this function returns an empty string ("").
-	*
-	* \threadsafety This function is not thread safe.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetScancodeFromKey
-	* \sa SDL_GetScancodeFromName
-	* \sa SDL_SetScancodeName
-	*/
-	[CLink] public static extern char8*  SDL_GetScancodeName(SDL_Scancode scancode);
+/**
+ * Get a human-readable name for a scancode.
+ *
+ * **Warning**: The returned name is by design not stable across platforms,
+ * e.g. the name for `SDL_SCANCODE_LGUI` is "Left GUI" under Linux but "Left
+ * Windows" under Microsoft Windows, and some scancodes like
+ * `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even
+ * scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and
+ * `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore
+ * unsuitable for creating a stable cross-platform two-way mapping between
+ * strings and scancodes.
+ *
+ * \param scancode the desired SDL_Scancode to query.
+ * \returns a pointer to the name for the scancode. If the scancode doesn't
+ *          have a name this function returns an empty string ("").
+ *
+ * \threadsafety This function is not thread safe.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetScancodeFromKey
+ * \sa SDL_GetScancodeFromName
+ * \sa SDL_SetScancodeName
+ */
+	[CLink] public static extern char8* SDL_GetScancodeName(SDL_Scancode scancode);
 
-	/**
-	* Get a scancode from a human-readable name.
-	*
-	* \param name the human-readable scancode name.
-	* \returns the SDL_Scancode, or `SDL_SCANCODE_UNKNOWN` if the name wasn't
-	*          recognized; call SDL_GetError() for more information.
-	*
-	* \threadsafety This function is not thread safe.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetKeyFromName
-	* \sa SDL_GetScancodeFromKey
-	* \sa SDL_GetScancodeName
-	*/
+/**
+ * Get a scancode from a human-readable name.
+ *
+ * \param name the human-readable scancode name.
+ * \returns the SDL_Scancode, or `SDL_SCANCODE_UNKNOWN` if the name wasn't
+ *          recognized; call SDL_GetError() for more information.
+ *
+ * \threadsafety This function is not thread safe.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetKeyFromName
+ * \sa SDL_GetScancodeFromKey
+ * \sa SDL_GetScancodeName
+ */
 	[CLink] public static extern SDL_Scancode SDL_GetScancodeFromName(char8* name);
 
-	/**
-	* Get a human-readable name for a key.
-	*
-	* If the key doesn't have a name, this function returns an empty string ("").
-	*
-	* Letters will be presented in their uppercase form, if applicable.
-	*
-	* \param key the desired SDL_Keycode to query.
-	* \returns a UTF-8 encoded string of the key name.
-	*
-	* \threadsafety This function is not thread safe.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetKeyFromName
-	* \sa SDL_GetKeyFromScancode
-	* \sa SDL_GetScancodeFromKey
-	*/
-	[CLink] public static extern char8*  SDL_GetKeyName(SDL_Keycode key);
+/**
+ * Get a human-readable name for a key.
+ *
+ * If the key doesn't have a name, this function returns an empty string ("").
+ *
+ * Letters will be presented in their uppercase form, if applicable.
+ *
+ * \param key the desired SDL_Keycode to query.
+ * \returns a UTF-8 encoded string of the key name.
+ *
+ * \threadsafety This function is not thread safe.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetKeyFromName
+ * \sa SDL_GetKeyFromScancode
+ * \sa SDL_GetScancodeFromKey
+ */
+	[CLink] public static extern char8* SDL_GetKeyName(SDL_Keycode key);
 
-	/**
-	* Get a key code from a human-readable name.
-	*
-	* \param name the human-readable key name.
-	* \returns key code, or `SDLK_UNKNOWN` if the name wasn't recognized; call
-	*          SDL_GetError() for more information.
-	*
-	* \threadsafety This function is not thread safe.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_GetKeyFromScancode
-	* \sa SDL_GetKeyName
-	* \sa SDL_GetScancodeFromName
-	*/
+/**
+ * Get a key code from a human-readable name.
+ *
+ * \param name the human-readable key name.
+ * \returns key code, or `SDLK_UNKNOWN` if the name wasn't recognized; call
+ *          SDL_GetError() for more information.
+ *
+ * \threadsafety This function is not thread safe.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetKeyFromScancode
+ * \sa SDL_GetKeyName
+ * \sa SDL_GetScancodeFromName
+ */
 	[CLink] public static extern SDL_Keycode SDL_GetKeyFromName(char8* name);
 
-	/**
-	* Start accepting Unicode text input events in a window.
-	*
-	* This function will enable text input (SDL_EVENT_TEXT_INPUT and
-	* SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this
-	* function paired with SDL_StopTextInput().
-	*
-	* Text input events are not received by default.
-	*
-	* On some platforms using this function shows the screen keyboard and/or
-	* activates an IME, which can prevent some key press events from being passed
-	* through.
-	*
-	* \param window the window to enable text input.
-	* \returns true on success or false on failure; call SDL_GetError() for more
-	*          information.
-	*
-	* \threadsafety This function should only be called on the main thread.
-	*
-	* \since This function is available since SDL 3.2.0.
-	*
-	* \sa SDL_SetTextInputArea
-	* \sa SDL_StartTextInputWithProperties
-	* \sa SDL_StopTextInput
-	* \sa SDL_TextInputActive
-	*/
+/**
+ * Start accepting Unicode text input events in a window.
+ *
+ * This function will enable text input (SDL_EVENT_TEXT_INPUT and
+ * SDL_EVENT_TEXT_EDITING events) in the specified window. Please use this
+ * function paired with SDL_StopTextInput().
+ *
+ * Text input events are not received by default.
+ *
+ * On some platforms using this function shows the screen keyboard and/or
+ * activates an IME, which can prevent some key press events from being passed
+ * through.
+ *
+ * \param window the window to enable text input.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_SetTextInputArea
+ * \sa SDL_StartTextInputWithProperties
+ * \sa SDL_StopTextInput
+ * \sa SDL_TextInputActive
+ */
 	[CLink] public static extern bool SDL_StartTextInput(SDL_Window* window);
 
-	/**
-	* Text input type.
-	*
-	* These are the valid values for SDL_PROP_TEXTINPUT_TYPE_NUMBER. Not every
-	* value is valid on every platform, but where a value isn't supported, a
-	* reasonable fallback will be used.
-	*
-	* \since This enum is available since SDL 3.2.0.
-	*
-	* \sa SDL_StartTextInputWithProperties
-	*/
+/**
+ * Text input type.
+ *
+ * These are the valid values for SDL_PROP_TEXTINPUT_TYPE_NUMBER. Not every
+ * value is valid on every platform, but where a value isn't supported, a
+ * reasonable fallback will be used.
+ *
+ * \since This enum is available since SDL 3.2.0.
+ *
+ * \sa SDL_StartTextInputWithProperties
+ */
 	public enum SDL_TextInputType : int32
 	{
 		SDL_TEXTINPUT_TYPE_TEXT, /**< The input is text */

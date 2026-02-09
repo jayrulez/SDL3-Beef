@@ -78,105 +78,105 @@ namespace SDL3;
 
 public static //extension SDL3
 {
-	/* Function prototypes */
-	
-	/**
-	 * Put UTF-8 text into the clipboard.
-	 *
-	 * \param text the text to store in the clipboard.
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \threadsafety This function should only be called on the main thread.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_GetClipboardText
-	 * \sa SDL_HasClipboardText
-	 */
+/* Function prototypes */
+
+/**
+ * Put UTF-8 text into the clipboard.
+ *
+ * \param text the text to store in the clipboard.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetClipboardText
+ * \sa SDL_HasClipboardText
+ */
 	[CLink] public static extern bool SDL_SetClipboardText(char8* text);
 
-	/**
-	 * Get UTF-8 text from the clipboard.
-	 *
-	 * This function returns an empty string if there is not enough memory left
-	 * for a copy of the clipboard's content.
-	 *
-	 * \returns the clipboard text on success or an empty string on failure; call
-	 *          SDL_GetError() for more information. This should be freed with
-	 *          SDL_free() when it is no longer needed.
-	 *
-	 * \threadsafety This function should only be called on the main thread.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_HasClipboardText
-	 * \sa SDL_SetClipboardText
-	 */
+/**
+ * Get UTF-8 text from the clipboard.
+ *
+ * This function returns an empty string if there is not enough memory left
+ * for a copy of the clipboard's content.
+ *
+ * \returns the clipboard text on success or an empty string on failure; call
+ *          SDL_GetError() for more information. This should be freed with
+ *          SDL_free() when it is no longer needed.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_HasClipboardText
+ * \sa SDL_SetClipboardText
+ */
 	[CLink] public static extern char8*  SDL_GetClipboardText();
 
-	/**
-	 * Query whether the clipboard exists and contains a non-empty text string.
-	 *
-	 * \returns true if the clipboard has text, or false if it does not.
-	 *
-	 * \threadsafety This function should only be called on the main thread.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_GetClipboardText
-	 * \sa SDL_SetClipboardText
-	 */
+/**
+ * Query whether the clipboard exists and contains a non-empty text string.
+ *
+ * \returns true if the clipboard has text, or false if it does not.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetClipboardText
+ * \sa SDL_SetClipboardText
+ */
 	[CLink] public static extern bool SDL_HasClipboardText();
 
-	/**
-	 * Put UTF-8 text into the primary selection.
-	 *
-	 * \param text the text to store in the primary selection.
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \threadsafety This function should only be called on the main thread.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_GetPrimarySelectionText
-	 * \sa SDL_HasPrimarySelectionText
-	 */
+/**
+ * Put UTF-8 text into the primary selection.
+ *
+ * \param text the text to store in the primary selection.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetPrimarySelectionText
+ * \sa SDL_HasPrimarySelectionText
+ */
 	[CLink] public static extern bool SDL_SetPrimarySelectionText(char8* text);
 
-	/**
-	 * Get UTF-8 text from the primary selection.
-	 *
-	 * This function returns an empty string if there is not enough memory left
-	 * for a copy of the primary selection's content.
-	 *
-	 * \returns the primary selection text on success or an empty string on
-	 *          failure; call SDL_GetError() for more information. This should be
-	 *          freed with SDL_free() when it is no longer needed.
-	 *
-	 * \threadsafety This function should only be called on the main thread.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_HasPrimarySelectionText
-	 * \sa SDL_SetPrimarySelectionText
-	 */
+/**
+ * Get UTF-8 text from the primary selection.
+ *
+ * This function returns an empty string if there is not enough memory left
+ * for a copy of the primary selection's content.
+ *
+ * \returns the primary selection text on success or an empty string on
+ *          failure; call SDL_GetError() for more information. This should be
+ *          freed with SDL_free() when it is no longer needed.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_HasPrimarySelectionText
+ * \sa SDL_SetPrimarySelectionText
+ */
 	[CLink] public static extern char8*  SDL_GetPrimarySelectionText();
 
-	/**
-	 * Query whether the primary selection exists and contains a non-empty text
-	 * string.
-	 *
-	 * \returns true if the primary selection has text, or false if it does not.
-	 *
-	 * \threadsafety This function should only be called on the main thread.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_GetPrimarySelectionText
-	 * \sa SDL_SetPrimarySelectionText
-	 */
+/**
+ * Query whether the primary selection exists and contains a non-empty text
+ * string.
+ *
+ * \returns true if the primary selection has text, or false if it does not.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetPrimarySelectionText
+ * \sa SDL_SetPrimarySelectionText
+ */
 	[CLink] public static extern bool SDL_HasPrimarySelectionText();
 }
 
@@ -204,8 +204,8 @@ public static //extension SDL3
 public typealias SDL_ClipboardDataCallback = function void*(void* userdata, char8* mime_type, uint* size);
 
 /**
- * Callback function that will be called when the clipboard is cleared, or when new
- * data is set.
+ * Callback function that will be called when the clipboard is cleared, or
+ * when new data is set.
  *
  * \param userdata a pointer to the provided user data.
  *
@@ -218,103 +218,104 @@ public typealias SDL_ClipboardCleanupCallback = function void(void* userdata);
 public static //extension SDL3
 {
 
-	/**
-	 * Offer clipboard data to the OS.
-	 *
-	 * Tell the operating system that the application is offering clipboard data
-	 * for each of the provided mime-types. Once another application requests the
-	 * data the callback function will be called, allowing it to generate and
-	 * respond with the data for the requested mime-type.
-	 *
-	 * The size of text data does not include any terminator, and the text does
-	 * not need to be null-terminated (e.g., you can directly copy a portion of a
-	 * document).
-	 *
-	 * \param callback a function pointer to the function that provides the
-	 *                 clipboard data.
-	 * \param cleanup a function pointer to the function that cleans up the
-	 *                clipboard data.
-	 * \param userdata an opaque pointer that will be forwarded to the callbacks.
-	 * \param mime_types a list of mime-types that are being offered. SDL copies the given list.
-	 * \param num_mime_types the number of mime-types in the mime_types list.
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \threadsafety This function should only be called on the main thread.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_ClearClipboardData
-	 * \sa SDL_GetClipboardData
-	 * \sa SDL_HasClipboardData
-	 */
+/**
+ * Offer clipboard data to the OS.
+ *
+ * Tell the operating system that the application is offering clipboard data
+ * for each of the provided mime-types. Once another application requests the
+ * data the callback function will be called, allowing it to generate and
+ * respond with the data for the requested mime-type.
+ *
+ * The size of text data does not include any terminator, and the text does
+ * not need to be null-terminated (e.g., you can directly copy a portion of a
+ * document).
+ *
+ * \param callback a function pointer to the function that provides the
+ *                 clipboard data.
+ * \param cleanup a function pointer to the function that cleans up the
+ *                clipboard data.
+ * \param userdata an opaque pointer that will be forwarded to the callbacks.
+ * \param mime_types a list of mime-types that are being offered. SDL copies
+ *                   the given list.
+ * \param num_mime_types the number of mime-types in the mime_types list.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_ClearClipboardData
+ * \sa SDL_GetClipboardData
+ * \sa SDL_HasClipboardData
+ */
 	[CLink] public static extern bool SDL_SetClipboardData(SDL_ClipboardDataCallback callback, SDL_ClipboardCleanupCallback cleanup, void* userdata, char8** mime_types, uint num_mime_types);
 
-	/**
-	 * Clear the clipboard data.
-	 *
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \threadsafety This function should only be called on the main thread.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_SetClipboardData
-	 */
+/**
+ * Clear the clipboard data.
+ *
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_SetClipboardData
+ */
 	[CLink] public static extern bool SDL_ClearClipboardData();
 
-	/**
-	 * Get the data from the clipboard for a given mime type.
-	 *
-	 * The size of text data does not include the terminator, but the text is
-	 * guaranteed to be null-terminated.
-	 *
-	 * \param mime_type the mime type to read from the clipboard.
-	 * \param size a pointer filled in with the length of the returned data.
-	 * \returns the retrieved data buffer or NULL on failure; call SDL_GetError()
-	 *          for more information. This should be freed with SDL_free() when it
-	 *          is no longer needed.
-	 *
-	 * \threadsafety This function should only be called on the main thread.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_HasClipboardData
-	 * \sa SDL_SetClipboardData
-	 */
+/**
+ * Get the data from the clipboard for a given mime type.
+ *
+ * The size of text data does not include the terminator, but the text is
+ * guaranteed to be null-terminated.
+ *
+ * \param mime_type the mime type to read from the clipboard.
+ * \param size a pointer filled in with the length of the returned data.
+ * \returns the retrieved data buffer or NULL on failure; call SDL_GetError()
+ *          for more information. This should be freed with SDL_free() when it
+ *          is no longer needed.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_HasClipboardData
+ * \sa SDL_SetClipboardData
+ */
 	[CLink] public static extern void* SDL_GetClipboardData(char8* mime_type, uint* size);
 
-	/**
-	 * Query whether there is data in the clipboard for the provided mime type.
-	 *
-	 * \param mime_type the mime type to check for data.
-	 * \returns true if data exists in the clipboard for the provided mime type,
-	 *          false if it does not.
-	 *
-	 * \threadsafety This function should only be called on the main thread.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_SetClipboardData
-	 * \sa SDL_GetClipboardData
-	 */
+/**
+ * Query whether there is data in the clipboard for the provided mime type.
+ *
+ * \param mime_type the mime type to check for data.
+ * \returns true if data exists in the clipboard for the provided mime type,
+ *          false if it does not.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_SetClipboardData
+ * \sa SDL_GetClipboardData
+ */
 	[CLink] public static extern bool SDL_HasClipboardData(char8* mime_type);
 
-	/**
-	 * Retrieve the list of mime types available in the clipboard.
-	 *
-	 * \param num_mime_types a pointer filled with the number of mime types, may
-	 *                       be NULL.
-	 * \returns a null-terminated array of strings with mime types, or NULL on
-	 *          failure; call SDL_GetError() for more information. This should be
-	 *          freed with SDL_free() when it is no longer needed.
-	 *
-	 * \threadsafety This function should only be called on the main thread.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_SetClipboardData
-	 */
+/**
+ * Retrieve the list of mime types available in the clipboard.
+ *
+ * \param num_mime_types a pointer filled with the number of mime types, may
+ *                       be NULL.
+ * \returns a null-terminated array of strings with mime types, or NULL on
+ *          failure; call SDL_GetError() for more information. This should be
+ *          freed with SDL_free() when it is no longer needed.
+ *
+ * \threadsafety This function should only be called on the main thread.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_SetClipboardData
+ */
 	[CLink] public static extern char8** SDL_GetClipboardMimeTypes(uint* num_mime_types);
 }

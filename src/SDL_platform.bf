@@ -32,21 +32,21 @@ namespace SDL3;
 public static //extension SDL3
 {
 
-	/**
-	 * Get the name of the platform.
-	 *
-	 * Here are the names returned for some (but not all) supported platforms:
-	 *
-	 * - "Windows"
-	 * - "macOS"
-	 * - "Linux"
-	 * - "iOS"
-	 * - "Android"
-	 *
-	 * \returns the name of the platform. If the correct platform name is not
-	 *          available, returns a string beginning with the text "Unknown".
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 */
-	[CLink] public static extern char8*  SDL_GetPlatform();
+/**
+ * Get the name of the platform.
+ *
+ * Here are the names returned for some (but not all) supported platforms:
+ *
+ * - "Windows"
+ * - "macOS"
+ * - "Linux"
+ * - "iOS"
+ * - "Android"
+ *
+ * \returns the name of the platform. If the correct platform name is not
+ *          available, returns a string beginning with the text "Unknown".
+ *
+ * \since This function is available since SDL 3.2.0.
+ */
+	[CLink] public static extern char8* SDL_GetPlatform();
 }

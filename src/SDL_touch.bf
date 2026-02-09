@@ -99,71 +99,71 @@ public enum SDL_TouchDeviceType : int32
 
 public static //extension SDL3
 {
-	/**
-	 * The SDL_MouseID for mouse events simulated with touch input.
-	 *
-	 * \since This macro is available since SDL 3.2.0.
-	 */
+/**
+ * The SDL_MouseID for mouse events simulated with touch input.
+ *
+ * \since This macro is available since SDL 3.2.0.
+ */
 	public const uint32 SDL_TOUCH_MOUSEID = ((SDL_MouseID) - 1);
 
-	/**
-	 * The SDL_TouchID for touch events simulated with mouse input.
-	 *
-	 * \since This macro is available since SDL 3.2.0.
-	 */
+/**
+ * The SDL_TouchID for touch events simulated with mouse input.
+ *
+ * \since This macro is available since SDL 3.2.0.
+ */
 	public const uint64 SDL_MOUSE_TOUCHID = ((SDL_TouchID) - 1);
 
 
-	/**
-	 * Get a list of registered touch devices.
-	 *
-	 * On some platforms SDL first sees the touch device if it was actually used.
-	 * Therefore the returned list might be empty, although devices are available.
-	 * After using all devices at least once the number will be correct.
-	 *
-	 * \param count a pointer filled in with the number of devices returned, may
-	 *              be NULL.
-	 * \returns a 0 terminated array of touch device IDs or NULL on failure; call
-	 *          SDL_GetError() for more information. This should be freed with
-	 *          SDL_free() when it is no longer needed.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 */
+/**
+ * Get a list of registered touch devices.
+ *
+ * On some platforms SDL first sees the touch device if it was actually used.
+ * Therefore the returned list might be empty, although devices are available.
+ * After using all devices at least once the number will be correct.
+ *
+ * \param count a pointer filled in with the number of devices returned, may
+ *              be NULL.
+ * \returns a 0 terminated array of touch device IDs or NULL on failure; call
+ *          SDL_GetError() for more information. This should be freed with
+ *          SDL_free() when it is no longer needed.
+ *
+ * \since This function is available since SDL 3.2.0.
+ */
 	[CLink] public static extern SDL_TouchID* SDL_GetTouchDevices(int32* count);
 
-	/**
-	 * Get the touch device name as reported from the driver.
-	 *
-	 * \param touchID the touch device instance ID.
-	 * \returns touch device name, or NULL on failure; call SDL_GetError() for
-	 *          more information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 */
-	[CLink] public static extern char8*  SDL_GetTouchDeviceName(SDL_TouchID touchID);
+/**
+ * Get the touch device name as reported from the driver.
+ *
+ * \param touchID the touch device instance ID.
+ * \returns touch device name, or NULL on failure; call SDL_GetError() for
+ *          more information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ */
+	[CLink] public static extern char8* SDL_GetTouchDeviceName(SDL_TouchID touchID);
 
-	/**
-	 * Get the type of the given touch device.
-	 *
-	 * \param touchID the ID of a touch device.
-	 * \returns touch device type.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 */
+/**
+ * Get the type of the given touch device.
+ *
+ * \param touchID the ID of a touch device.
+ * \returns touch device type.
+ *
+ * \since This function is available since SDL 3.2.0.
+ */
 	[CLink] public static extern SDL_TouchDeviceType SDL_GetTouchDeviceType(SDL_TouchID touchID);
 
-	/**
-	 * Get a list of active fingers for a given touch device.
-	 *
-	 * \param touchID the ID of a touch device.
-	 * \param count a pointer filled in with the number of fingers returned, can
-	 *              be NULL.
-	 * \returns a NULL terminated array of SDL_Finger pointers or NULL on failure;
-	 *          call SDL_GetError() for more information. This is a single
-	 *          allocation that should be freed with SDL_free() when it is no
-	 *          longer needed.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 */
+/**
+ * Get a list of active fingers for a given touch device.
+ *
+ * \param touchID the ID of a touch device.
+ * \param count a pointer filled in with the number of fingers returned, can
+ *              be NULL.
+ * \returns a NULL terminated array of SDL_Finger pointers or NULL on failure;
+ *          call SDL_GetError() for more information. This is a single
+ *          allocation that should be freed with SDL_free() when it is no
+ *          longer needed.
+ *
+ * \since This function is available since SDL 3.2.0.
+ */
 	[CLink] public static extern SDL_Finger** SDL_GetTouchFingers(SDL_TouchID touchID, int32* count);
 }

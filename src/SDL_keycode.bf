@@ -41,14 +41,17 @@ namespace SDL3;
  * `SDLK_*` constant for those keys that do not generate characters.
  *
  * A special exception is the number keys at the top of the keyboard which map
- * to SDLK_0...SDLK_9 on AZERTY layouts.
+ * by default to SDLK_0...SDLK_9 on AZERTY layouts.
  *
  * Keys with the `SDLK_EXTENDED_MASK` bit set do not map to a scancode or
- * unicode code point.
+ * Unicode code point.
+ *
+ * Many common keycodes are listed below, but this list is not exhaustive.
  *
  * \since This datatype is available since SDL 3.2.0.
+ *
+ * \sa SDL_HINT_KEYCODE_OPTIONS
  */
-//public typealias SDL_Keycode = uint32;
 
 public static //extension SDL3
 {
@@ -58,6 +61,7 @@ public static //extension SDL3
 	}
 }
 
+//public typealias SDL_Keycode = uint32;
 public enum SDL_Keycode : uint32
 {
 	SDLK_EXTENDED_MASK          = (1 << 29),
@@ -321,10 +325,10 @@ public enum SDL_Keycode : uint32
 }
 
 /**
-* Valid key modifiers (possibly OR'd together).
-*
-* \since This datatype is available since SDL 3.2.0.
-*/
+ * Valid key modifiers (possibly OR'd together).
+ *
+ * \since This datatype is available since SDL 3.2.0.
+ */
 public enum SDL_Keymod : uint16 //public typealias SDL_Keymod = uint16;
 {
 	SDL_KMOD_NONE   = 0x0000, /**< no modifier is applicable. */

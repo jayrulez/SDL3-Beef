@@ -71,7 +71,7 @@ using System;
  * {
  *    SDL_Haptic *haptic;
  *    SDL_HapticEffect effect;
- *    int32 effect_id;
+ *    SDL_HapticEffectID effect_id;
  *
  *    // Open the device
  *    haptic = SDL_OpenHapticFromJoystick(joystick);
@@ -141,6 +141,20 @@ namespace SDL3;
 
 public static //extension SDL3
 {
+/*
+ * Misc defines.
+ */
+
+/**
+ * Used to play a device an infinite number of times.
+ *
+ * \since This macro is available since SDL 3.2.0.
+ *
+ * \sa SDL_RunHapticEffect
+ */
+	public const uint32 SDL_HAPTIC_INFINITY   = 4294967295;
+
+
 /**
  *  \name Haptic features
  *
@@ -152,6 +166,11 @@ public static //extension SDL3
  *  \name Haptic effects
  */
 /* @{ */
+
+/**
+ * Type of haptic effect.
+ */
+	public typealias SDL_HapticEffectType = uint16;
 
 /**
  * Constant effect supported.
@@ -375,6 +394,11 @@ public static //extension SDL3
 /* @{ */
 
 /**
+ * Type of coordinates used for haptic direction.
+ */
+	public typealias SDL_HapticDirectionType = uint8;
+
+/**
  * Uses polar coordinates for the direction.
  *
  * \since This macro is available since SDL 3.2.0.
@@ -428,8 +452,17 @@ public static //extension SDL3
  *
  * \sa SDL_RunHapticEffect
  */
-	public const uint64 SDL_HAPTIC_INFINITY   = 4294967295U;
+	//public const uint64 SDL_HAPTIC_INFINITY   = 4294967295U;
 }
+
+/**
+ * ID for haptic effects.
+ *
+ * This is -1 if the ID is invalid.
+ *
+ * \sa SDL_CreateHapticEffect
+ */
+public typealias SDL_HapticEffectID = int32;
 
 /**
  * Structure that represents a haptic direction.
@@ -536,7 +569,7 @@ public static //extension SDL3
  */
 [CRepr] public struct SDL_HapticDirection
 {
-	public uint8 type; /**< The type of encoding. */
+	public SDL_HapticDirectionType type; /**< The type of encoding. */
 	public int32[3] dir; /**< The encoded direction. */
 }
 
@@ -557,7 +590,7 @@ public static //extension SDL3
 [CRepr] public struct SDL_HapticConstant
 {
 	/* Header */
-	public uint16 type; /**< SDL_HAPTIC_CONSTANT */
+	public SDL_HapticEffectType type; /**< SDL_HAPTIC_CONSTANT */
 	public SDL_HapticDirection direction; /**< Direction of the effect. */
 
 	/* Replay */
@@ -643,9 +676,9 @@ public static //extension SDL3
 [CRepr] public struct SDL_HapticPeriodic
 {
 	/* Header */
-	public uint16 type; /**< SDL_HAPTIC_SINE, SDL_HAPTIC_SQUARE
-							 SDL_HAPTIC_TRIANGLE, SDL_HAPTIC_SAWTOOTHUP or
-							 SDL_HAPTIC_SAWTOOTHDOWN */
+	public SDL_HapticEffectType type; /**< SDL_HAPTIC_SINE, SDL_HAPTIC_SQUARE
+										 SDL_HAPTIC_TRIANGLE, SDL_HAPTIC_SAWTOOTHUP or
+										 SDL_HAPTIC_SAWTOOTHDOWN */
 	public SDL_HapticDirection direction; /**< Direction of the effect. */
 
 	/* Replay */
@@ -699,8 +732,8 @@ public static //extension SDL3
 [CRepr] public struct SDL_HapticCondition
 {
 	/* Header */
-	public uint16 type; /**< SDL_HAPTIC_SPRING, SDL_HAPTIC_DAMPER,
-								 SDL_HAPTIC_INERTIA or SDL_HAPTIC_FRICTION */
+	public SDL_HapticEffectType type; /**< SDL_HAPTIC_SPRING, SDL_HAPTIC_DAMPER,
+										 SDL_HAPTIC_INERTIA or SDL_HAPTIC_FRICTION */
 	public SDL_HapticDirection direction; /**< Direction of the effect. */
 
 	/* Replay */
@@ -738,7 +771,7 @@ public static //extension SDL3
 [CRepr] public struct SDL_HapticRamp
 {
 	/* Header */
-	public uint16 type; /**< SDL_HAPTIC_RAMP */
+	public SDL_HapticEffectType type; /**< SDL_HAPTIC_RAMP */
 	public SDL_HapticDirection direction; /**< Direction of the effect. */
 
 	/* Replay */
@@ -777,7 +810,7 @@ public static //extension SDL3
 [CRepr] public struct SDL_HapticLeftRight
 {
 	/* Header */
-	public uint16 type; /**< SDL_HAPTIC_LEFTRIGHT */
+	public SDL_HapticEffectType type; /**< SDL_HAPTIC_LEFTRIGHT */
 
 	/* Replay */
 	public uint32 length; /**< Duration of the effect in milliseconds. */
@@ -807,7 +840,7 @@ public static //extension SDL3
 [CRepr] public struct SDL_HapticCustom
 {
 	/* Header */
-	public uint16 type; /**< SDL_HAPTIC_CUSTOM */
+	public SDL_HapticEffectType type; /**< SDL_HAPTIC_CUSTOM */
 	public SDL_HapticDirection direction; /**< Direction of the effect. */
 
 	/* Replay */
@@ -906,7 +939,7 @@ public static //extension SDL3
 [CRepr, Union] public struct SDL_HapticEffect
 {
 	/* Common for all force feedback effects */
-	public uint16 type; /**< Effect type. */
+	public SDL_HapticEffectType type; /**< Effect type. */
 	public SDL_HapticConstant constant; /**< Constant effect. */
 	public SDL_HapticPeriodic periodic; /**< Periodic effect. */
 	public SDL_HapticCondition condition; /**< Condition effect. */
@@ -931,498 +964,498 @@ public typealias SDL_HapticID = uint32;
 public static //extension SDL3
 {
 
-	/* Function prototypes */
-	
-	/**
-	 * Get a list of currently connected haptic devices.
-	 *
-	 * \param count a pointer filled in with the number of haptic devices
-	 *              returned, may be NULL.
-	 * \returns a 0 terminated array of haptic device instance IDs or NULL on
-	 *          failure; call SDL_GetError() for more information. This should be
-	 *          freed with SDL_free() when it is no longer needed.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_OpenHaptic
-	 */
+/* Function prototypes */
+
+/**
+ * Get a list of currently connected haptic devices.
+ *
+ * \param count a pointer filled in with the number of haptic devices
+ *              returned, may be NULL.
+ * \returns a 0 terminated array of haptic device instance IDs or NULL on
+ *          failure; call SDL_GetError() for more information. This should be
+ *          freed with SDL_free() when it is no longer needed.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_OpenHaptic
+ */
 	[CLink] public static extern SDL_HapticID* SDL_GetHaptics(int32* count);
 
-	/**
-	 * Get the implementation dependent name of a haptic device.
-	 *
-	 * This can be called before any haptic devices are opened.
-	 *
-	 * \param instance_id the haptic device instance ID.
-	 * \returns the name of the selected haptic device. If no name can be found,
-	 *          this function returns NULL; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_GetHapticName
-	 * \sa SDL_OpenHaptic
-	 */
-	[CLink] public static extern char8*  SDL_GetHapticNameForID(SDL_HapticID instance_id);
+/**
+ * Get the implementation dependent name of a haptic device.
+ *
+ * This can be called before any haptic devices are opened.
+ *
+ * \param instance_id the haptic device instance ID.
+ * \returns the name of the selected haptic device. If no name can be found,
+ *          this function returns NULL; call SDL_GetError() for more
+ *          information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetHapticName
+ * \sa SDL_OpenHaptic
+ */
+	[CLink] public static extern char8* SDL_GetHapticNameForID(SDL_HapticID instance_id);
 
-	/**
-	 * Open a haptic device for use.
-	 *
-	 * The index passed as an argument refers to the N'th haptic device on this
-	 * system.
-	 *
-	 * When opening a haptic device, its gain will be set to maximum and
-	 * autocenter will be disabled. To modify these values use SDL_SetHapticGain()
-	 * and SDL_SetHapticAutocenter().
-	 *
-	 * \param instance_id the haptic device instance ID.
-	 * \returns the device identifier or NULL on failure; call SDL_GetError() for
-	 *          more information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_CloseHaptic
-	 * \sa SDL_GetHaptics
-	 * \sa SDL_OpenHapticFromJoystick
-	 * \sa SDL_OpenHapticFromMouse
-	 * \sa SDL_SetHapticAutocenter
-	 * \sa SDL_SetHapticGain
-	 */
+/**
+ * Open a haptic device for use.
+ *
+ * The index passed as an argument refers to the N'th haptic device on this
+ * system.
+ *
+ * When opening a haptic device, its gain will be set to maximum and
+ * autocenter will be disabled. To modify these values use SDL_SetHapticGain()
+ * and SDL_SetHapticAutocenter().
+ *
+ * \param instance_id the haptic device instance ID.
+ * \returns the device identifier or NULL on failure; call SDL_GetError() for
+ *          more information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CloseHaptic
+ * \sa SDL_GetHaptics
+ * \sa SDL_OpenHapticFromJoystick
+ * \sa SDL_OpenHapticFromMouse
+ * \sa SDL_SetHapticAutocenter
+ * \sa SDL_SetHapticGain
+ */
 	[CLink] public static extern SDL_Haptic* SDL_OpenHaptic(SDL_HapticID instance_id);
 
 
-	/**
-	 * Get the SDL_Haptic associated with an instance ID, if it has been opened.
-	 *
-	 * \param instance_id the instance ID to get the SDL_Haptic for.
-	 * \returns an SDL_Haptic on success or NULL on failure or if it hasn't been
-	 *          opened yet; call SDL_GetError() for more information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 */
+/**
+ * Get the SDL_Haptic associated with an instance ID, if it has been opened.
+ *
+ * \param instance_id the instance ID to get the SDL_Haptic for.
+ * \returns an SDL_Haptic on success or NULL on failure or if it hasn't been
+ *          opened yet; call SDL_GetError() for more information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ */
 	[CLink] public static extern SDL_Haptic* SDL_GetHapticFromID(SDL_HapticID instance_id);
 
-	/**
-	 * Get the instance ID of an opened haptic device.
-	 *
-	 * \param haptic the SDL_Haptic device to query.
-	 * \returns the instance ID of the specified haptic device on success or 0 on
-	 *          failure; call SDL_GetError() for more information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 */
+/**
+ * Get the instance ID of an opened haptic device.
+ *
+ * \param haptic the SDL_Haptic device to query.
+ * \returns the instance ID of the specified haptic device on success or 0 on
+ *          failure; call SDL_GetError() for more information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ */
 	[CLink] public static extern SDL_HapticID SDL_GetHapticID(SDL_Haptic* haptic);
 
-	/**
-	 * Get the implementation dependent name of a haptic device.
-	 *
-	 * \param haptic the SDL_Haptic obtained from SDL_OpenJoystick().
-	 * \returns the name of the selected haptic device. If no name can be found,
-	 *          this function returns NULL; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_GetHapticNameForID
-	 */
-	[CLink] public static extern char8*  SDL_GetHapticName(SDL_Haptic* haptic);
+/**
+ * Get the implementation dependent name of a haptic device.
+ *
+ * \param haptic the SDL_Haptic obtained from SDL_OpenJoystick().
+ * \returns the name of the selected haptic device. If no name can be found,
+ *          this function returns NULL; call SDL_GetError() for more
+ *          information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetHapticNameForID
+ */
+	[CLink] public static extern char8* SDL_GetHapticName(SDL_Haptic* haptic);
 
-	/**
-	 * Query whether or not the current mouse has haptic capabilities.
-	 *
-	 * \returns true if the mouse is haptic or false if it isn't.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_OpenHapticFromMouse
-	 */
+/**
+ * Query whether or not the current mouse has haptic capabilities.
+ *
+ * \returns true if the mouse is haptic or false if it isn't.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_OpenHapticFromMouse
+ */
 	[CLink] public static extern bool SDL_IsMouseHaptic();
 
-	/**
-	 * Try to open a haptic device from the current mouse.
-	 *
-	 * \returns the haptic device identifier or NULL on failure; call
-	 *          SDL_GetError() for more information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_CloseHaptic
-	 * \sa SDL_IsMouseHaptic
-	 */
+/**
+ * Try to open a haptic device from the current mouse.
+ *
+ * \returns the haptic device identifier or NULL on failure; call
+ *          SDL_GetError() for more information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CloseHaptic
+ * \sa SDL_IsMouseHaptic
+ */
 	[CLink] public static extern SDL_Haptic* SDL_OpenHapticFromMouse();
 
-	/**
-	 * Query if a joystick has haptic features.
-	 *
-	 * \param joystick the SDL_Joystick to test for haptic capabilities.
-	 * \returns true if the joystick is haptic or false if it isn't.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_OpenHapticFromJoystick
-	 */
+/**
+ * Query if a joystick has haptic features.
+ *
+ * \param joystick the SDL_Joystick to test for haptic capabilities.
+ * \returns true if the joystick is haptic or false if it isn't.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_OpenHapticFromJoystick
+ */
 	[CLink] public static extern bool SDL_IsJoystickHaptic(SDL_Joystick* joystick);
 
-	/**
-	 * Open a haptic device for use from a joystick device.
-	 *
-	 * You must still close the haptic device separately. It will not be closed
-	 * with the joystick.
-	 *
-	 * When opened from a joystick you should first close the haptic device before
-	 * closing the joystick device. If not, on some implementations the haptic
-	 * device will also get unallocated and you'll be unable to use force feedback
-	 * on that device.
-	 *
-	 * \param joystick the SDL_Joystick to create a haptic device from.
-	 * \returns a valid haptic device identifier on success or NULL on failure;
-	 *          call SDL_GetError() for more information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_CloseHaptic
-	 * \sa SDL_IsJoystickHaptic
-	 */
+/**
+ * Open a haptic device for use from a joystick device.
+ *
+ * You must still close the haptic device separately. It will not be closed
+ * with the joystick.
+ *
+ * When opened from a joystick you should first close the haptic device before
+ * closing the joystick device. If not, on some implementations the haptic
+ * device will also get unallocated and you'll be unable to use force feedback
+ * on that device.
+ *
+ * \param joystick the SDL_Joystick to create a haptic device from.
+ * \returns a valid haptic device identifier on success or NULL on failure;
+ *          call SDL_GetError() for more information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CloseHaptic
+ * \sa SDL_IsJoystickHaptic
+ */
 	[CLink] public static extern SDL_Haptic* SDL_OpenHapticFromJoystick(SDL_Joystick* joystick);
 
-	/**
-	 * Close a haptic device previously opened with SDL_OpenHaptic().
-	 *
-	 * \param haptic the SDL_Haptic device to close.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_OpenHaptic
-	 */
+/**
+ * Close a haptic device previously opened with SDL_OpenHaptic().
+ *
+ * \param haptic the SDL_Haptic device to close.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_OpenHaptic
+ */
 	[CLink] public static extern void SDL_CloseHaptic(SDL_Haptic* haptic);
 
-	/**
-	 * Get the number of effects a haptic device can store.
-	 *
-	 * On some platforms this isn't fully supported, and therefore is an
-	 * approximation. Always check to see if your created effect was actually
-	 * created and do not rely solely on SDL_GetMaxHapticEffects().
-	 *
-	 * \param haptic the SDL_Haptic device to query.
-	 * \returns the number of effects the haptic device can store or a negative
-	 *          error code on failure; call SDL_GetError() for more information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_GetMaxHapticEffectsPlaying
-	 * \sa SDL_GetHapticFeatures
-	 */
+/**
+ * Get the number of effects a haptic device can store.
+ *
+ * On some platforms this isn't fully supported, and therefore is an
+ * approximation. Always check to see if your created effect was actually
+ * created and do not rely solely on SDL_GetMaxHapticEffects().
+ *
+ * \param haptic the SDL_Haptic device to query.
+ * \returns the number of effects the haptic device can store or a negative
+ *          error code on failure; call SDL_GetError() for more information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetMaxHapticEffectsPlaying
+ * \sa SDL_GetHapticFeatures
+ */
 	[CLink] public static extern int32 SDL_GetMaxHapticEffects(SDL_Haptic* haptic);
 
-	/**
-	 * Get the number of effects a haptic device can play at the same time.
-	 *
-	 * This is not supported on all platforms, but will always return a value.
-	 *
-	 * \param haptic the SDL_Haptic device to query maximum playing effects.
-	 * \returns the number of effects the haptic device can play at the same time
-	 *          or -1 on failure; call SDL_GetError() for more information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_GetMaxHapticEffects
-	 * \sa SDL_GetHapticFeatures
-	 */
+/**
+ * Get the number of effects a haptic device can play at the same time.
+ *
+ * This is not supported on all platforms, but will always return a value.
+ *
+ * \param haptic the SDL_Haptic device to query maximum playing effects.
+ * \returns the number of effects the haptic device can play at the same time
+ *          or -1 on failure; call SDL_GetError() for more information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetMaxHapticEffects
+ * \sa SDL_GetHapticFeatures
+ */
 	[CLink] public static extern int32 SDL_GetMaxHapticEffectsPlaying(SDL_Haptic* haptic);
 
-	/**
-	 * Get the haptic device's supported features in bitwise manner.
-	 *
-	 * \param haptic the SDL_Haptic device to query.
-	 * \returns a list of supported haptic features in bitwise manner (OR'd), or 0
-	 *          on failure; call SDL_GetError() for more information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_HapticEffectSupported
-	 * \sa SDL_GetMaxHapticEffects
-	 */
+/**
+ * Get the haptic device's supported features in bitwise manner.
+ *
+ * \param haptic the SDL_Haptic device to query.
+ * \returns a list of supported haptic features in bitwise manner (OR'd), or 0
+ *          on failure; call SDL_GetError() for more information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_HapticEffectSupported
+ * \sa SDL_GetMaxHapticEffects
+ */
 	[CLink] public static extern uint32 SDL_GetHapticFeatures(SDL_Haptic* haptic);
 
-	/**
-	 * Get the number of haptic axes the device has.
-	 *
-	 * The number of haptic axes might be useful if working with the
-	 * SDL_HapticDirection effect.
-	 *
-	 * \param haptic the SDL_Haptic device to query.
-	 * \returns the number of axes on success or -1 on failure; call
-	 *          SDL_GetError() for more information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 */
+/**
+ * Get the number of haptic axes the device has.
+ *
+ * The number of haptic axes might be useful if working with the
+ * SDL_HapticDirection effect.
+ *
+ * \param haptic the SDL_Haptic device to query.
+ * \returns the number of axes on success or -1 on failure; call
+ *          SDL_GetError() for more information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ */
 	[CLink] public static extern int32 SDL_GetNumHapticAxes(SDL_Haptic* haptic);
 
-	/**
-	 * Check to see if an effect is supported by a haptic device.
-	 *
-	 * \param haptic the SDL_Haptic device to query.
-	 * \param effect the desired effect to query.
-	 * \returns true if the effect is supported or false if it isn't.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_CreateHapticEffect
-	 * \sa SDL_GetHapticFeatures
-	 */
+/**
+ * Check to see if an effect is supported by a haptic device.
+ *
+ * \param haptic the SDL_Haptic device to query.
+ * \param effect the desired effect to query.
+ * \returns true if the effect is supported or false if it isn't.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CreateHapticEffect
+ * \sa SDL_GetHapticFeatures
+ */
 	[CLink] public static extern bool SDL_HapticEffectSupported(SDL_Haptic* haptic, SDL_HapticEffect* effect);
 
-	/**
-	 * Create a new haptic effect on a specified device.
-	 *
-	 * \param haptic an SDL_Haptic device to create the effect on.
-	 * \param effect an SDL_HapticEffect structure containing the properties of
-	 *               the effect to create.
-	 * \returns the ID of the effect on success or -1 on failure; call
-	 *          SDL_GetError() for more information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_DestroyHapticEffect
-	 * \sa SDL_RunHapticEffect
-	 * \sa SDL_UpdateHapticEffect
-	 */
-	[CLink] public static extern int32 SDL_CreateHapticEffect(SDL_Haptic* haptic, SDL_HapticEffect* effect);
+/**
+ * Create a new haptic effect on a specified device.
+ *
+ * \param haptic an SDL_Haptic device to create the effect on.
+ * \param effect an SDL_HapticEffect structure containing the properties of
+ *               the effect to create.
+ * \returns the ID of the effect on success or -1 on failure; call
+ *          SDL_GetError() for more information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_DestroyHapticEffect
+ * \sa SDL_RunHapticEffect
+ * \sa SDL_UpdateHapticEffect
+ */
+	[CLink] public static extern SDL_HapticEffectID SDL_CreateHapticEffect(SDL_Haptic* haptic, SDL_HapticEffect* effect);
 
-	/**
-	 * Update the properties of an effect.
-	 *
-	 * Can be used dynamically, although behavior when dynamically changing
-	 * direction may be strange. Specifically the effect may re-upload itself and
-	 * start playing from the start. You also cannot change the type either when
-	 * running SDL_UpdateHapticEffect().
-	 *
-	 * \param haptic the SDL_Haptic device that has the effect.
-	 * \param effect the identifier of the effect to update.
-	 * \param data an SDL_HapticEffect structure containing the new effect
-	 *             properties to use.
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_CreateHapticEffect
-	 * \sa SDL_RunHapticEffect
-	 */
-	[CLink] public static extern bool SDL_UpdateHapticEffect(SDL_Haptic* haptic, int32 effect, SDL_HapticEffect* data);
+/**
+ * Update the properties of an effect.
+ *
+ * Can be used dynamically, although behavior when dynamically changing
+ * direction may be strange. Specifically the effect may re-upload itself and
+ * start playing from the start. You also cannot change the type either when
+ * running SDL_UpdateHapticEffect().
+ *
+ * \param haptic the SDL_Haptic device that has the effect.
+ * \param effect the identifier of the effect to update.
+ * \param data an SDL_HapticEffect structure containing the new effect
+ *             properties to use.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CreateHapticEffect
+ * \sa SDL_RunHapticEffect
+ */
+	[CLink] public static extern bool SDL_UpdateHapticEffect(SDL_Haptic* haptic, SDL_HapticEffectID effect, SDL_HapticEffect* data);
 
-	/**
-	 * Run the haptic effect on its associated haptic device.
-	 *
-	 * To repeat the effect over and over indefinitely, set `iterations` to
-	 * `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make
-	 * one instance of the effect last indefinitely (so the effect does not fade),
-	 * set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`
-	 * instead.
-	 *
-	 * \param haptic the SDL_Haptic device to run the effect on.
-	 * \param effect the ID of the haptic effect to run.
-	 * \param iterations the number of iterations to run the effect; use
-	 *                   `SDL_HAPTIC_INFINITY` to repeat forever.
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_GetHapticEffectStatus
-	 * \sa SDL_StopHapticEffect
-	 * \sa SDL_StopHapticEffects
-	 */
-	[CLink] public static extern bool SDL_RunHapticEffect(SDL_Haptic* haptic, int32 effect, uint32 iterations);
+/**
+ * Run the haptic effect on its associated haptic device.
+ *
+ * To repeat the effect over and over indefinitely, set `iterations` to
+ * `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make
+ * one instance of the effect last indefinitely (so the effect does not fade),
+ * set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`
+ * instead.
+ *
+ * \param haptic the SDL_Haptic device to run the effect on.
+ * \param effect the ID of the haptic effect to run.
+ * \param iterations the number of iterations to run the effect; use
+ *                   `SDL_HAPTIC_INFINITY` to repeat forever.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetHapticEffectStatus
+ * \sa SDL_StopHapticEffect
+ * \sa SDL_StopHapticEffects
+ */
+	[CLink] public static extern bool SDL_RunHapticEffect(SDL_Haptic* haptic, SDL_HapticEffectID effect, uint32 iterations);
 
-	/**
-	 * Stop the haptic effect on its associated haptic device.
-	 *
-	 * \param haptic the SDL_Haptic device to stop the effect on.
-	 * \param effect the ID of the haptic effect to stop.
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_RunHapticEffect
-	 * \sa SDL_StopHapticEffects
-	 */
-	[CLink] public static extern bool SDL_StopHapticEffect(SDL_Haptic* haptic, int32 effect);
+/**
+ * Stop the haptic effect on its associated haptic device.
+ *
+ * \param haptic the SDL_Haptic device to stop the effect on.
+ * \param effect the ID of the haptic effect to stop.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_RunHapticEffect
+ * \sa SDL_StopHapticEffects
+ */
+	[CLink] public static extern bool SDL_StopHapticEffect(SDL_Haptic* haptic, SDL_HapticEffectID effect);
 
-	/**
-	 * Destroy a haptic effect on the device.
-	 *
-	 * This will stop the effect if it's running. Effects are automatically
-	 * destroyed when the device is closed.
-	 *
-	 * \param haptic the SDL_Haptic device to destroy the effect on.
-	 * \param effect the ID of the haptic effect to destroy.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_CreateHapticEffect
-	 */
-	[CLink] public static extern void SDL_DestroyHapticEffect(SDL_Haptic* haptic, int32 effect);
+/**
+ * Destroy a haptic effect on the device.
+ *
+ * This will stop the effect if it's running. Effects are automatically
+ * destroyed when the device is closed.
+ *
+ * \param haptic the SDL_Haptic device to destroy the effect on.
+ * \param effect the ID of the haptic effect to destroy.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_CreateHapticEffect
+ */
+	[CLink] public static extern void SDL_DestroyHapticEffect(SDL_Haptic* haptic, SDL_HapticEffectID effect);
 
-	/**
-	 * Get the status of the current effect on the specified haptic device.
-	 *
-	 * Device must support the SDL_HAPTIC_STATUS feature.
-	 *
-	 * \param haptic the SDL_Haptic device to query for the effect status on.
-	 * \param effect the ID of the haptic effect to query its status.
-	 * \returns true if it is playing, false if it isn't playing or haptic status
-	 *          isn't supported.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_GetHapticFeatures
-	 */
-	[CLink] public static extern bool SDL_GetHapticEffectStatus(SDL_Haptic* haptic, int32 effect);
+/**
+ * Get the status of the current effect on the specified haptic device.
+ *
+ * Device must support the SDL_HAPTIC_STATUS feature.
+ *
+ * \param haptic the SDL_Haptic device to query for the effect status on.
+ * \param effect the ID of the haptic effect to query its status.
+ * \returns true if it is playing, false if it isn't playing or haptic status
+ *          isn't supported.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetHapticFeatures
+ */
+	[CLink] public static extern bool SDL_GetHapticEffectStatus(SDL_Haptic* haptic, SDL_HapticEffectID effect);
 
-	/**
-	 * Set the global gain of the specified haptic device.
-	 *
-	 * Device must support the SDL_HAPTIC_GAIN feature.
-	 *
-	 * The user may specify the maximum gain by setting the environment variable
-	 * `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to
-	 * SDL_SetHapticGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the
-	 * maximum.
-	 *
-	 * \param haptic the SDL_Haptic device to set the gain on.
-	 * \param gain value to set the gain to, should be between 0 and 100 (0 -
-	 *             100).
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_GetHapticFeatures
-	 */
+/**
+ * Set the global gain of the specified haptic device.
+ *
+ * Device must support the SDL_HAPTIC_GAIN feature.
+ *
+ * The user may specify the maximum gain by setting the environment variable
+ * `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to
+ * SDL_SetHapticGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the
+ * maximum.
+ *
+ * \param haptic the SDL_Haptic device to set the gain on.
+ * \param gain value to set the gain to, should be between 0 and 100 (0 -
+ *             100).
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetHapticFeatures
+ */
 	[CLink] public static extern bool SDL_SetHapticGain(SDL_Haptic* haptic, int32 gain);
 
-	/**
-	 * Set the global autocenter of the device.
-	 *
-	 * Autocenter should be between 0 and 100. Setting it to 0 will disable
-	 * autocentering.
-	 *
-	 * Device must support the SDL_HAPTIC_AUTOCENTER feature.
-	 *
-	 * \param haptic the SDL_Haptic device to set autocentering on.
-	 * \param autocenter value to set autocenter to (0-100).
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_GetHapticFeatures
-	 */
+/**
+ * Set the global autocenter of the device.
+ *
+ * Autocenter should be between 0 and 100. Setting it to 0 will disable
+ * autocentering.
+ *
+ * Device must support the SDL_HAPTIC_AUTOCENTER feature.
+ *
+ * \param haptic the SDL_Haptic device to set autocentering on.
+ * \param autocenter value to set autocenter to (0-100).
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_GetHapticFeatures
+ */
 	[CLink] public static extern bool SDL_SetHapticAutocenter(SDL_Haptic* haptic, int32 autocenter);
 
-	/**
-	 * Pause a haptic device.
-	 *
-	 * Device must support the `SDL_HAPTIC_PAUSE` feature. Call SDL_ResumeHaptic()
-	 * to resume playback.
-	 *
-	 * Do not modify the effects nor add new ones while the device is paused. That
-	 * can cause all sorts of weird errors.
-	 *
-	 * \param haptic the SDL_Haptic device to pause.
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_ResumeHaptic
-	 */
+/**
+ * Pause a haptic device.
+ *
+ * Device must support the `SDL_HAPTIC_PAUSE` feature. Call SDL_ResumeHaptic()
+ * to resume playback.
+ *
+ * Do not modify the effects nor add new ones while the device is paused. That
+ * can cause all sorts of weird errors.
+ *
+ * \param haptic the SDL_Haptic device to pause.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_ResumeHaptic
+ */
 	[CLink] public static extern bool SDL_PauseHaptic(SDL_Haptic* haptic);
 
-	/**
-	 * Resume a haptic device.
-	 *
-	 * Call to unpause after SDL_PauseHaptic().
-	 *
-	 * \param haptic the SDL_Haptic device to unpause.
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_PauseHaptic
-	 */
+/**
+ * Resume a haptic device.
+ *
+ * Call to unpause after SDL_PauseHaptic().
+ *
+ * \param haptic the SDL_Haptic device to unpause.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_PauseHaptic
+ */
 	[CLink] public static extern bool SDL_ResumeHaptic(SDL_Haptic* haptic);
 
-	/**
-	 * Stop all the currently playing effects on a haptic device.
-	 *
-	 * \param haptic the SDL_Haptic device to stop.
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_RunHapticEffect
-	 * \sa SDL_StopHapticEffects
-	 */
+/**
+ * Stop all the currently playing effects on a haptic device.
+ *
+ * \param haptic the SDL_Haptic device to stop.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_RunHapticEffect
+ * \sa SDL_StopHapticEffects
+ */
 	[CLink] public static extern bool SDL_StopHapticEffects(SDL_Haptic* haptic);
 
-	/**
-	 * Check whether rumble is supported on a haptic device.
-	 *
-	 * \param haptic haptic device to check for rumble support.
-	 * \returns true if the effect is supported or false if it isn't.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_InitHapticRumble
-	 */
+/**
+ * Check whether rumble is supported on a haptic device.
+ *
+ * \param haptic haptic device to check for rumble support.
+ * \returns true if the effect is supported or false if it isn't.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_InitHapticRumble
+ */
 	[CLink] public static extern bool SDL_HapticRumbleSupported(SDL_Haptic* haptic);
 
-	/**
-	 * Initialize a haptic device for simple rumble playback.
-	 *
-	 * \param haptic the haptic device to initialize for simple rumble playback.
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_PlayHapticRumble
-	 * \sa SDL_StopHapticRumble
-	 * \sa SDL_HapticRumbleSupported
-	 */
+/**
+ * Initialize a haptic device for simple rumble playback.
+ *
+ * \param haptic the haptic device to initialize for simple rumble playback.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_PlayHapticRumble
+ * \sa SDL_StopHapticRumble
+ * \sa SDL_HapticRumbleSupported
+ */
 	[CLink] public static extern bool SDL_InitHapticRumble(SDL_Haptic* haptic);
 
-	/**
-	 * Run a simple rumble effect on a haptic device.
-	 *
-	 * \param haptic the haptic device to play the rumble effect on.
-	 * \param strength strength of the rumble to play as a 0-1 float value.
-	 * \param length length of the rumble to play in milliseconds.
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_InitHapticRumble
-	 * \sa SDL_StopHapticRumble
-	 */
+/**
+ * Run a simple rumble effect on a haptic device.
+ *
+ * \param haptic the haptic device to play the rumble effect on.
+ * \param strength strength of the rumble to play as a 0-1 float value.
+ * \param length length of the rumble to play in milliseconds.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_InitHapticRumble
+ * \sa SDL_StopHapticRumble
+ */
 	[CLink] public static extern bool SDL_PlayHapticRumble(SDL_Haptic* haptic, float strength, uint32 length);
 
-	/**
-	 * Stop the simple rumble on a haptic device.
-	 *
-	 * \param haptic the haptic device to stop the rumble effect on.
-	 * \returns true on success or false on failure; call SDL_GetError() for more
-	 *          information.
-	 *
-	 * \since This function is available since SDL 3.2.0.
-	 *
-	 * \sa SDL_PlayHapticRumble
-	 */
+/**
+ * Stop the simple rumble on a haptic device.
+ *
+ * \param haptic the haptic device to stop the rumble effect on.
+ * \returns true on success or false on failure; call SDL_GetError() for more
+ *          information.
+ *
+ * \since This function is available since SDL 3.2.0.
+ *
+ * \sa SDL_PlayHapticRumble
+ */
 	[CLink] public static extern bool SDL_StopHapticRumble(SDL_Haptic* haptic);
 }
